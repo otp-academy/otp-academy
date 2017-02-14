@@ -6,6 +6,9 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
+    "webpack-watch": "webpack -w --config ./webpack.dev.config.js",
+    "server-start": "nodemon --watch server -e js,html ./server/server.js",
+    "dev-start": "concurrently -k \"npm run server-start\" \"npm run webpack-watch\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
