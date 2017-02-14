@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Component from './component';
+import component from './component';
 import { requestLogin } from '../../../actions/auth';
 
 function mapDispatchToProps(dispatch) {
@@ -8,4 +8,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Component);
+export default connect(null, mapDispatchToProps)(component);
