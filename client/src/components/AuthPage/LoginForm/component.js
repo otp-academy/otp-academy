@@ -28,7 +28,7 @@ export default class LoginForm extends Component {
 
     return (
       <div className="loginPanel">
-        <Panel header="Login">
+        <Panel header="Login" bsStyle="info">
           <Form onSubmit={this.submitLoginForm}>
 
             <FormGroup>
@@ -52,7 +52,7 @@ export default class LoginForm extends Component {
             </FormGroup>
 
             <FormGroup>
-              <Button type="submit">
+              <Button type="submit" bsStyle="info">
                 Login
               </Button>
             </FormGroup>

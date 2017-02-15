@@ -30346,7 +30346,7 @@
 	        { className: 'loginPanel' },
 	        _react2.default.createElement(
 	          _reactBootstrap.Panel,
-	          { header: 'Login' },
+	          { header: 'Login', bsStyle: 'info' },
 	          _react2.default.createElement(
 	            _reactBootstrap.Form,
 	            { onSubmit: this.submitLoginForm },
@@ -30385,7 +30385,7 @@
 	              null,
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { type: 'submit' },
+	                { type: 'submit', bsStyle: 'info' },
 	                'Login'
 	              )
 	            )
@@ -49873,7 +49873,7 @@
 	        { className: 'signupPanel' },
 	        _react2.default.createElement(
 	          _reactBootstrap.Panel,
-	          { header: 'Sign Up' },
+	          { header: 'Sign Up', bsStyle: 'success' },
 	          _react2.default.createElement(
 	            _reactBootstrap.Form,
 	            { onSubmit: this.submitSignUpForm },
@@ -49927,7 +49927,7 @@
 	              null,
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { type: 'submit', disabled: !this.checkFormIsValid() },
+	                { type: 'submit', disabled: !this.checkFormIsValid(), bsStyle: 'success' },
 	                'Sign Up'
 	              )
 	            )
@@ -49966,10 +49966,10 @@
 	    { className: 'guestPanel' },
 	    _react2.default.createElement(
 	      _reactBootstrap.Panel,
-	      { header: 'Guests' },
+	      { header: 'Guests', bsStyle: 'warning' },
 	      _react2.default.createElement(
 	        _reactBootstrap.Button,
-	        null,
+	        { bsStyle: 'warning' },
 	        'Continue as Guest'
 	      )
 	    )
