@@ -18,8 +18,9 @@ export default class LoginForm extends Component {
     });
   }
 
-  submitLoginForm() {
-    requestLoginForm(this.state);
+  submitLoginForm(e) {
+    e.preventDefault();
+    this.props.requestLogin(this.state);
   }
 
   render() {

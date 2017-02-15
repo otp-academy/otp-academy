@@ -27,8 +27,11 @@ export default class SignUpForm extends Component {
     });
   }
 
-  submitSignUpForm() {
+  submitSignUpForm(e) {
     const { username, password, reenterPass } = this.state;
+    const { requestSignUp } = this.props;
+    
+    e.preventDefault();
 
     requestSignUp({
       username,
