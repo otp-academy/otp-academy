@@ -30267,7 +30267,7 @@
 	
 	function mapDispatchToProps(dispatch) {
 	  return {
-	    submitLogin: function submitLogin(loginInfo) {
+	    requestLogin: function requestLogin(loginInfo) {
 	      return dispatch((0, _auth.requestLogin)(loginInfo));
 	    }
 	  };
@@ -30316,6 +30316,7 @@
 	      password: ''
 	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.submitLoginForm = _this.submitLoginForm.bind(_this);
 	    return _this;
 	  }
 	
@@ -30323,6 +30324,11 @@
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      this.setState(_defineProperty({}, e.target.name, e.target.value));
+	    }
+	  }, {
+	    key: 'submitLoginForm',
+	    value: function submitLoginForm() {
+	      requestLoginForm(this.state);
 	    }
 	  }, {
 	    key: 'render',
@@ -30340,7 +30346,7 @@
 	          { header: 'Login' },
 	          _react2.default.createElement(
 	            _reactBootstrap.Form,
-	            null,
+	            { onSubmit: this.submitLoginForm },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
 	              null,
@@ -49782,24 +49788,78 @@
 	    _this.state = {
 	      username: '',
 	      password: '',
-	      reenterPass: ''
+	      reenterPass: '',
+	      reenterDirty: false
+	
 	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.submitSignUpForm = _this.submitSignUpForm.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(SignUpForm, [{
 	    key: 'handleChange',
-	    value: function handleChange() {
+	    value: function handleChange(e) {
+	      if (e.target.name === 'reenterPass' && !this.state.reenterDirty) {
+	        this.setState({
+	          reenterDirty: true
+	        });
+	      }
+	
 	      this.setState(_defineProperty({}, e.target.name, e.target.value));
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
+	    key: 'submitSignUpForm',
+	    value: function submitSignUpForm() {
 	      var _state = this.state,
 	          username = _state.username,
 	          password = _state.password,
 	          reenterPass = _state.reenterPass;
+	
+	
+	      requestSignUp({
+	        username: username,
+	        password: password,
+	        reenterPass: reenterPass
+	      });
+	    }
+	  }, {
+	    key: 'checkValidationState',
+	    value: function checkValidationState() {
+	      var _state2 = this.state,
+	          username = _state2.username,
+	          password = _state2.password,
+	          reenterPass = _state2.reenterPass,
+	          reenterDirty = _state2.reenterDirty;
+	
+	
+	      if (reenterDirty) {
+	        if (password === reenterPass) {
+	          return 'success';
+	        }
+	        return 'error';
+	      }
+	      return null;
+	    }
+	  }, {
+	    key: 'checkFormIsValid',
+	    value: function checkFormIsValid() {
+	      var _state3 = this.state,
+	          username = _state3.username,
+	          password = _state3.password,
+	          reenterPass = _state3.reenterPass,
+	          reenterDirty = _state3.reenterDirty;
+	
+	      return username && password === reenterPass && reenterDirty;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _state4 = this.state,
+	          username = _state4.username,
+	          password = _state4.password,
+	          reenterPass = _state4.reenterPass,
+	          reenterDirty = _state4.reenterDirty;
 	
 	
 	      return _react2.default.createElement(
@@ -49810,7 +49870,7 @@
 	          { header: 'Sign Up' },
 	          _react2.default.createElement(
 	            _reactBootstrap.Form,
-	            null,
+	            { onSubmit: this.submitSignUpForm },
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
 	              null,
@@ -49843,7 +49903,7 @@
 	            ),
 	            _react2.default.createElement(
 	              _reactBootstrap.FormGroup,
-	              null,
+	              { validationState: this.checkValidationState() },
 	              _react2.default.createElement(
 	                _reactBootstrap.ControlLabel,
 	                null,
@@ -49861,7 +49921,7 @@
 	              null,
 	              _react2.default.createElement(
 	                _reactBootstrap.Button,
-	                { type: 'submit' },
+	                { type: 'submit', disabled: !this.checkFormIsValid() },
 	                'Sign Up'
 	              )
 	            )

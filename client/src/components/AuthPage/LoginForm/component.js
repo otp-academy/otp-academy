@@ -9,6 +9,7 @@ export default class LoginForm extends Component {
       password: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.submitLoginForm = this.submitLoginForm.bind(this);
   }
 
   handleChange(e) {
@@ -17,13 +18,17 @@ export default class LoginForm extends Component {
     });
   }
 
+  submitLoginForm() {
+    requestLoginForm(this.state);
+  }
+
   render() {
     const { username, password } = this.state;
 
     return (
       <div className="loginPanel">
         <Panel header="Login">
-          <Form>
+          <Form onSubmit={this.submitLoginForm}>
 
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
@@ -50,6 +55,7 @@ export default class LoginForm extends Component {
                 Login
               </Button>
             </FormGroup>
+
           </Form>
         </Panel>
       </div>
