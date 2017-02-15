@@ -27,8 +27,11 @@ export default class SignUpForm extends Component {
     });
   }
 
-  submitSignUpForm() {
+  submitSignUpForm(e) {
     const { username, password, reenterPass } = this.state;
+    const { requestSignUp } = this.props;
+
+    e.preventDefault();
 
     requestSignUp({
       username,
@@ -59,7 +62,7 @@ export default class SignUpForm extends Component {
 
     return (
       <div className="signupPanel">
-        <Panel header="Sign Up">
+        <Panel header="Sign Up" bsStyle="success">
           <Form onSubmit={this.submitSignUpForm}>
 
             <FormGroup>
@@ -93,7 +96,7 @@ export default class SignUpForm extends Component {
             </FormGroup>
 
             <FormGroup>
-              <Button type="submit" disabled={ !this.checkFormIsValid() }>
+              <Button type="submit" disabled={ !this.checkFormIsValid() } bsStyle="success">
                 Sign Up
               </Button>
             </FormGroup>

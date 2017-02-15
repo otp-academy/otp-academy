@@ -14,6 +14,18 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
+      },
+      {
+        test: /\.png$/,
+        loader: 'url'
+      },
+      {
+        test: /\.jpg$/,
+        loader: 'file'
       }
     ]
   }

@@ -3,9 +3,9 @@ import { Panel, Button } from 'react-bootstrap';
 
 export default () => {
   return (
-    <div className="GuestPanel">
-      <Panel header="Guests">
-        <Button>Continue as Guest</Button>
+    <div className="guestPanel">
+      <Panel header="Guests" bsStyle="warning">
+        <Button bsStyle="warning">Continue as Guest</Button>
       </Panel>
     </div>
   );
