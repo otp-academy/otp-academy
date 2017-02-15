@@ -8,7 +8,7 @@ export default class AuthPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <OTPLogo />
         <LoginForm />
         <SignUpForm />

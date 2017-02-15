@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.dev.config.js",
-  "dependencies": {},
-  "devDependencies": {},
   "scripts": {
     "webpack-watch": "webpack -w --config ./webpack.dev.config.js",
     "server-start": "nodemon --watch server -e js,html ./server/server.js",

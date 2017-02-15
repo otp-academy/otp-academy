@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, Form, FormGroup, Col, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Panel, Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -8,6 +8,7 @@ export default class LoginForm extends Component {
       username: '',
       password: ''
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
@@ -20,40 +21,34 @@ export default class LoginForm extends Component {
     const { username, password } = this.state;
 
     return (
-      <div>
+      <div className="loginPanel">
         <Panel header="Login">
-          <Form horizontal>
+          <Form>
 
             <FormGroup>
-              <Col componentClass={ControlLabel} sm={2}>Username</Col>
-              <Col sm={10}>
-                <FormControl
-                  name="username"
-                  type="text"
-                  value={ username }
-                  onChange={this.handleChange}
-                />
-              </Col>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl
+                name="username"
+                type="text"
+                value={ username }
+                onChange={this.handleChange}
+              />
             </FormGroup>
 
             <FormGroup>
-              <Col componentClass={ControlLabel} sm={2}>Password</Col>
-              <Col sm={10}>
-                <FormControl
-                  name="password"
-                  type="password"
-                  value={ password }
-                  onChange={this.handleChange}
-                />
-              </Col>
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                name="password"
+                type="password"
+                value={ password }
+                onChange={this.handleChange}
+              />
             </FormGroup>
 
             <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Button type="submit">
-                  Login
-                </Button>
-              </Col>
+              <Button type="submit">
+                Login
+              </Button>
             </FormGroup>
           </Form>
         </Panel>

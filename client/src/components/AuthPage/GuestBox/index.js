@@ -3,7 +3,7 @@ import { Panel, Button } from 'react-bootstrap';
 
 export default () => {
   return (
-    <div>
+    <div className="GuestPanel">
       <Panel header="Guests">
         <Button>Continue as Guest</Button>
       </Panel>
