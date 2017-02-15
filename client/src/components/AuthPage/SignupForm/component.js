@@ -8,23 +8,59 @@ export default class SignUpForm extends Component {
       username: '',
       password: '',
       reenterPass: '',
+      reenterDirty: false
+
     };
     this.handleChange = this.handleChange.bind(this);
+    this.submitSignUpForm = this.submitSignUpForm.bind(this);
   }
 
-  handleChange() {
+  handleChange(e) {
+    if (e.target.name === 'reenterPass' && !this.state.reenterDirty) {
+      this.setState({
+        reenterDirty: true
+      });
+    }
+
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  render() {
+  submitSignUpForm() {
     const { username, password, reenterPass } = this.state;
-    
+
+    requestSignUp({
+      username,
+      password,
+      reenterPass
+    });
+  }
+
+  checkValidationState() {
+    const { username, password, reenterPass, reenterDirty } = this.state;
+
+    if (reenterDirty) {
+      if (password === reenterPass) {
+        return 'success';
+      }
+      return 'error';
+    }
+    return null;
+  }
+
+  checkFormIsValid() {
+    const { username, password, reenterPass, reenterDirty } = this.state;
+    return username && password === reenterPass && reenterDirty;
+  }
+
+  render() {
+    const { username, password, reenterPass, reenterDirty } = this.state;
+
     return (
       <div className="signupPanel">
         <Panel header="Sign Up">
-          <Form>
+          <Form onSubmit={this.submitSignUpForm}>
 
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
@@ -46,7 +82,7 @@ export default class SignUpForm extends Component {
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup validationState={ this.checkValidationState() }>
               <ControlLabel>Re-enter Password</ControlLabel>
               <FormControl
                 name="reenterPass"
@@ -57,10 +93,11 @@ export default class SignUpForm extends Component {
             </FormGroup>
 
             <FormGroup>
-              <Button type="submit">
+              <Button type="submit" disabled={ !this.checkFormIsValid() }>
                 Sign Up
               </Button>
             </FormGroup>
+
           </Form>
         </Panel>
       </div>

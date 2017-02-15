@@ -4,7 +4,7 @@ import { requestLogin } from '../../../actions/auth';
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitLogin: loginInfo => dispatch(requestLogin(loginInfo))
+    requestLogin: loginInfo => dispatch(requestLogin(loginInfo))
   };
 }
 
