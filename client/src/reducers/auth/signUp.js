@@ -5,7 +5,7 @@ const initialState = {
   error: null
 };
 
-export default (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case Consts.SIGN_UP_REQUEST:
       return {

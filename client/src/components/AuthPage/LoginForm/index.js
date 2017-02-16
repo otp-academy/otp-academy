@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import Component from './component';
+import component from './component';
 import { requestLogin } from '../../../actions/auth';
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitLogin: loginInfo => dispatch(requestLogin(loginInfo))
+    requestLogin: loginInfo => dispatch(requestLogin(loginInfo))
   };
 }
 
-export default connect(null, mapDispatchToProps)(Component);
+export default connect(null, mapDispatchToProps)(component);
