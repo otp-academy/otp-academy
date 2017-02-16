@@ -45,18 +45,5 @@
     "nodemon": "^1.11.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/otp-academy/otp-academy.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/otp-academy/otp-academy/issues"
-  },
-  "homepage": "https://github.com/otp-academy/otp-academy#readme"
+  }
 }
