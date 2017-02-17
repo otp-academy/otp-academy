@@ -80,32 +80,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
 	var store = (0, _configureStore2.default)(_reactRouter.browserHistory);
 	
 	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
-	
-	var Champions = function (_React$Component) {
-	  _inherits(Champions, _React$Component);
-	
-	  function Champions(props) {
-	    _classCallCheck(this, Champions);
-	
-	    var _this = _possibleConstructorReturn(this, (Champions.__proto__ || Object.getPrototypeOf(Champions)).call(this, props));
-	
-	    _this.state = {
-	      champions: []
-	    };
-	    return _this;
-	  }
-	
-	  return Champions;
-	}(_react2.default.Component);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -49774,7 +49751,7 @@
 	
 	var _reactRedux = __webpack_require__(199);
 	
-	var _component = __webpack_require__(550);
+	var _component = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./component\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _component2 = _interopRequireDefault(_component);
 	
@@ -49791,84 +49768,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_component2.default);
 
 /***/ },
-/* 550 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ChampionsList = function (_Component) {
-	  _inherits(ChampionsList, _Component);
-	
-	  function ChampionsList() {
-	    _classCallCheck(this, ChampionsList);
-	
-	    return _possibleConstructorReturn(this, (ChampionsList.__proto__ || Object.getPrototypeOf(ChampionsList)).apply(this, arguments));
-	  }
-	
-	  _createClass(ChampionsList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      // need to get api info on /api and it needs to be forbidden from being
-	      // entered into search bar
-	      var latestVersion = "7.3.3";
-	      // fetch for latest league version to get champion's image URL
-	      fetch('/api/version', {
-	        method: 'get'
-	      }).then(function (res) {
-	        latestVersion = res;
-	        console.log(latestVersion);
-	        return fetch('/api/champions');
-	      }).then(function (res) {
-	        console.log(res);
-	        var champions = JSON.parse(res.data).data;
-	        console.log(champions);
-	        for (champ in champData) {
-	          champ.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/" + champ.image.full;
-	        }
-	        _this2.setState({ champions: champions });
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Champions List Page'
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return ChampionsList;
-	}(_react.Component);
-	
-	exports.default = ChampionsList;
-
-/***/ },
+/* 550 */,
 /* 551 */,
 /* 552 */,
 /* 553 */,

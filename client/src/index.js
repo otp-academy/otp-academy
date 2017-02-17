@@ -14,15 +14,6 @@ const store = configureStore(browserHistory);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-class Champions extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			champions: []
-		};
-	}
-}
 
 ReactDOM.render(
   <Provider store={store}>
