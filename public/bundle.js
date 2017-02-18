@@ -49814,19 +49814,14 @@
 	      var latestVersion = "7.3.3";
 	      // fetch for latest league version to get champion's image URL
 	      fetch('/api/version').then(function (res) {
-	        console.log(res);
 	        return res.text();
 	      }).then(function (data) {
-	        // latestVersion = res.data;
-	        console.log("data");
 	        latestVersion = data;
-	        console.log(latestVersion);
 	        return fetch('/api/champions');
 	      }).then(function (res) {
 	        return res.json();
-	      }).then(function (data) {
-	        var champions = data.data;
-	        console.log(champions);
+	      }).then(function (res) {
+	        var champions = JSON.parse(res).data;
 	        for (var champName in champions) {
 	          var champ = champions[champName];
 	          champ.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/" + champ.image.full;

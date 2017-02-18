@@ -12,22 +12,17 @@ export default class ChampionsList extends Component {
     // fetch for latest league version to get champion's image URL
     fetch('/api/version')
     .then(res => {
-      console.log(res)
       return res.text()
     })
     .then(data => {
-      // latestVersion = res.data;
-      console.log("data")
       latestVersion = data;
-      console.log(latestVersion)
       return fetch('/api/champions')
     })
     .then(res => {
       return res.json();
     })
-    .then(data => {
-      var champions = data.data;
-      console.log(champions)
+    .then(res => {
+      var champions = JSON.parse(res).data;
       for(var champName in champions) {
         var champ = champions[champName];
         champ.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/"+champ.image.full;
