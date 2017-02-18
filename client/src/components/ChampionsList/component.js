@@ -3,23 +3,30 @@ import axios from 'axios';
 
 export default class ChampionsList extends Component {
 
-  constructor(props) {
-    this.state = {champions: {}}
-  }
   
+
   componentWillMount() {
-    console.log("In componentWillMount")
     // need to get api info on /api and it needs to be forbidden from being
     // entered into search bar
     var latestVersion = "7.3.3";
     // fetch for latest league version to get champion's image URL
-    axios('/api/version')
+    fetch('/api/version')
     .then(res => {
-      latestVersion = res.data;
-      return axios('/api/champions')
+      console.log(res)
+      return res.text()
+    })
+    .then(data => {
+      // latestVersion = res.data;
+      console.log("data")
+      latestVersion = data;
+      console.log(latestVersion)
+      return fetch('/api/champions')
     })
     .then(res => {
-      var champions = JSON.parse(res.data).data;
+      return res.json();
+    })
+    .then(data => {
+      var champions = data.data;
       console.log(champions)
       for(var champName in champions) {
         var champ = champions[champName];
@@ -27,17 +34,19 @@ export default class ChampionsList extends Component {
       }
       this.setState({ champions });
     })
+    .catch(err => {
+      console.log("error: ", err)
+    })
   }
 
   render() {
     console.log("In render")
     console.log(this.state)
-    if (!this.state.champions) this.setState({champions: {}})
     var champData = [];
-    for (var champName in this.state.champions) {
-      champ = this.state.champions[champName]
-      champData.push(<div className='champData'> {champ} </div>);
-    }
+    // for (var champName in this.state.champions) {
+    //   champ = this.state.champions[champName]
+    //   champData.push(<div className='champData'> {champ} </div>);
+    // }
     return (
       <div className="container">
         <h1>Champions List Page</h1>
