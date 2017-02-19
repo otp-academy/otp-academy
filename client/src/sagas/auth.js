@@ -19,7 +19,7 @@ function* requestSignUp(action) {
     const result = yield call(Api.requestSignUp, action.signUpInfo);
     yield put(Actions.signUpSuccess(result));
   } catch (error) {
-    yield put(Actions.signUpFailed(result));
+    yield put(Actions.signUpFailed(error));
   }
 }
 
