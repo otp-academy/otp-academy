@@ -46,6 +46,8 @@
 
 	'use strict';
 	
+	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"babel-polyfill\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -80,13 +82,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _configureStore2.default)(_reactRouter.browserHistory);
-	
-	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, _configureStore2.default);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
-	  { store: store },
+	  { store: _configureStore2.default },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: history },
@@ -29057,22 +29057,32 @@
 	
 	var _reactRouterRedux = __webpack_require__(269);
 	
+	var _reactRouter = __webpack_require__(216);
+	
 	var _reduxLogger = __webpack_require__(275);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+	
+	var _reduxSaga = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"redux-saga\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _reduxSaga2 = _interopRequireDefault(_reduxSaga);
 	
 	var _reducers = __webpack_require__(281);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
+	var _sagas = __webpack_require__(578);
+	
+	var _sagas2 = _interopRequireDefault(_sagas);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (history) {
+	var sagaMiddleware = (0, _reduxSaga2.default)();
 	
-	  var enhancers = (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), (0, _reactRouterRedux.routerMiddleware)(history));
+	exports.default = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(sagaMiddleware, (0, _reactRouterRedux.routerMiddleware)(_reactRouter.browserHistory), (0, _reduxLogger2.default)()));
 	
-	  return (0, _redux.createStore)(_reducers2.default, enhancers);
-	};
+	
+	sagaMiddleware.run(_sagas2.default);
 
 /***/ },
 /* 275 */
@@ -29993,7 +30003,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var initialState = {
-	  username: ''
+	  user: null
 	};
 	
 	var userReducer = function userReducer() {
@@ -30003,8 +30013,15 @@
 	  switch (action.type) {
 	    case Consts.LOGIN_SUCCESS:
 	    case Consts.SIGN_UP_SUCCESS:
+	    case Consts.SESSION_SUCCESS:
 	      return _extends({}, state, {
-	        username: action.user.username
+	        user: action.result.user
+	      });
+	    case Consts.LOGIN_FAILED:
+	    case Consts.SIGN_UP_FAILED:
+	    case Consts.SESSION_FAILED:
+	      return _extends({}, state, {
+	        user: null
 	      });
 	    default:
 	      return state;
@@ -30081,6 +30098,10 @@
 	var SIGN_UP_REQUEST = exports.SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 	var SIGN_UP_SUCCESS = exports.SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 	var SIGN_UP_FAILED = exports.SIGN_UP_FAILED = 'SIGN_UP_FAILED';
+	
+	var SESSION_REQUEST = exports.SESSION_REQUEST = 'SESSION_REQUEST';
+	var SESSION_SUCCESS = exports.SESSION_SUCCESS = 'SESSION_SUCCESS';
+	var SESSION_FAILED = exports.SESSION_FAILED = 'SESSION_FAILED';
 
 /***/ },
 /* 285 */
@@ -49119,7 +49140,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SignUpFailed = exports.SignUpSuccess = exports.requestSignUp = exports.loginFailed = exports.loginSuccess = exports.requestLogin = undefined;
+	exports.sessionFailed = exports.sessionSuccess = exports.requestSession = exports.signUpFailed = exports.signUpSuccess = exports.requestSignUp = exports.loginFailed = exports.loginSuccess = exports.requestLogin = undefined;
 	
 	var _auth = __webpack_require__(284);
 	
@@ -49130,8 +49151,8 @@
 	var requestLogin = exports.requestLogin = function requestLogin(loginInfo) {
 	  return { type: Consts.LOGIN_REQUEST, loginInfo: loginInfo };
 	};
-	var loginSuccess = exports.loginSuccess = function loginSuccess() {
-	  return { type: Consts.LOGIN_SUCCESS };
+	var loginSuccess = exports.loginSuccess = function loginSuccess(result) {
+	  return { type: Consts.LOGIN_SUCCESS, result: result };
 	};
 	var loginFailed = exports.loginFailed = function loginFailed(error) {
 	  return { type: Consts.LOGIN_FAILED, error: error };
@@ -49140,11 +49161,21 @@
 	var requestSignUp = exports.requestSignUp = function requestSignUp(signUpInfo) {
 	  return { type: Consts.SIGN_UP_REQUEST, signUpInfo: signUpInfo };
 	};
-	var SignUpSuccess = exports.SignUpSuccess = function SignUpSuccess() {
-	  return { type: Consts.SIGN_UP_SUCCESS };
+	var signUpSuccess = exports.signUpSuccess = function signUpSuccess(result) {
+	  return { type: Consts.SIGN_UP_SUCCESS, result: result };
 	};
-	var SignUpFailed = exports.SignUpFailed = function SignUpFailed(error) {
+	var signUpFailed = exports.signUpFailed = function signUpFailed(error) {
 	  return { type: Consts.SIGN_UP_FAILED, error: error };
+	};
+	
+	var requestSession = exports.requestSession = function requestSession() {
+	  return { type: Consts.SESSION_REQUEST };
+	};
+	var sessionSuccess = exports.sessionSuccess = function sessionSuccess(result) {
+	  return { type: Consts.SESSION_SUCCESS, result: result };
+	};
+	var sessionFailed = exports.sessionFailed = function sessionFailed(error) {
+	  return { type: Consts.SESSION_FAILED, error: error };
 	};
 
 /***/ },
@@ -49163,9 +49194,19 @@
 	
 	var _component2 = _interopRequireDefault(_component);
 	
+	var _auth = __webpack_require__(541);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = (0, _reactRedux.connect)()(_component2.default);
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    requestSignUp: function requestSignUp(signUpInfo) {
+	      return dispatch((0, _auth.requestSignUp)(signUpInfo));
+	    }
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_component2.default);
 
 /***/ },
 /* 543 */
@@ -49811,48 +49852,17 @@
 	
 	      // need to get api info on /api and it needs to be forbidden from being
 	      // entered into search bar
-	      var latestVersion = "7.3.3";
-	      // fetch for latest league version to get champion's image URL
-	      fetch('/api/version').then(function (res) {
-	        return res.text();
-	      }).then(function (data) {
-	        latestVersion = data;
-	        return fetch('/api/champions');
-	      }).then(function (res) {
-	        return res.json();
-	      }).then(function (res) {
-	        var champions = JSON.parse(res).data;
-	        for (var champName in champions) {
-	          var champ = champions[champName];
-	          champ.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/" + champ.image.full;
-	        }
-	        var alphabetizedChampionsList = {};
-	        Object.keys(champions).sort().forEach(function (champName) {
-	          alphabetizedChampionsList[champName] = champions[champName];
+	      _axios2.default.get('/api/champions').then(function (res) {
+	        var champions = res.data.data.children.map(function (obj) {
+	          return obj.data;
 	        });
-	        _this2.setState({ champions: alphabetizedChampionsList });
-	      }).catch(function (err) {
-	        console.log("error: ", err);
+	        _this2.setState({ champions: champions });
+	        console.log(champions);
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log("In render");
-	      console.log(this.state);
-	      var champData = [];
-	      if (this.state) {
-	        for (var champName in this.state.champions) {
-	          var champ = this.state.champions[champName];
-	          champData.push(_react2.default.createElement(
-	            'div',
-	            { key: champName },
-	            champ.name,
-	            ' ',
-	            _react2.default.createElement('img', { src: champ.imageURL })
-	          ));
-	        }
-	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
@@ -49860,8 +49870,7 @@
 	          'h1',
 	          null,
 	          'Champions List Page'
-	        ),
-	        champData
+	        )
 	      );
 	    }
 	  }]);
@@ -51436,6 +51445,222 @@
 	  };
 	};
 
+
+/***/ },
+/* 578 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = mainSaga;
+	
+	var _auth = __webpack_require__(579);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _marked = [mainSaga].map(regeneratorRuntime.mark);
+	
+	function mainSaga() {
+	  return regeneratorRuntime.wrap(function mainSaga$(_context) {
+	    while (1) {
+	      switch (_context.prev = _context.next) {
+	        case 0:
+	          _context.next = 2;
+	          return [(0, _auth2.default)()];
+	
+	        case 2:
+	        case 'end':
+	          return _context.stop();
+	      }
+	    }
+	  }, _marked[0], this);
+	}
+
+/***/ },
+/* 579 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = watchAuth;
+	
+	var _reduxSaga = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"redux-saga\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _effects = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"redux-saga/effects\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _auth = __webpack_require__(580);
+	
+	var Api = _interopRequireWildcard(_auth);
+	
+	var _auth2 = __webpack_require__(541);
+	
+	var Actions = _interopRequireWildcard(_auth2);
+	
+	var _auth3 = __webpack_require__(284);
+	
+	var Consts = _interopRequireWildcard(_auth3);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var _marked = [requestLogin, requestSignUp, requestSession, watchAuth].map(regeneratorRuntime.mark);
+	
+	function requestLogin(action) {
+	  var result;
+	  return regeneratorRuntime.wrap(function requestLogin$(_context) {
+	    while (1) {
+	      switch (_context.prev = _context.next) {
+	        case 0:
+	          _context.prev = 0;
+	          _context.next = 3;
+	          return (0, _effects.call)(Api.requestLogin, action.loginInfo);
+	
+	        case 3:
+	          result = _context.sent;
+	          _context.next = 6;
+	          return (0, _effects.put)(Actions.loginSuccess(result));
+	
+	        case 6:
+	          _context.next = 12;
+	          break;
+	
+	        case 8:
+	          _context.prev = 8;
+	          _context.t0 = _context['catch'](0);
+	          _context.next = 12;
+	          return (0, _effects.put)(Actions.loginFailed(_context.t0));
+	
+	        case 12:
+	        case 'end':
+	          return _context.stop();
+	      }
+	    }
+	  }, _marked[0], this, [[0, 8]]);
+	}
+	
+	function requestSignUp(action) {
+	  var result;
+	  return regeneratorRuntime.wrap(function requestSignUp$(_context2) {
+	    while (1) {
+	      switch (_context2.prev = _context2.next) {
+	        case 0:
+	          _context2.prev = 0;
+	          _context2.next = 3;
+	          return (0, _effects.call)(Api.requestSignUp, action.signUpInfo);
+	
+	        case 3:
+	          result = _context2.sent;
+	          _context2.next = 6;
+	          return (0, _effects.put)(Actions.signUpSuccess(result));
+	
+	        case 6:
+	          _context2.next = 12;
+	          break;
+	
+	        case 8:
+	          _context2.prev = 8;
+	          _context2.t0 = _context2['catch'](0);
+	          _context2.next = 12;
+	          return (0, _effects.put)(Actions.signUpFailed(_context2.t0));
+	
+	        case 12:
+	        case 'end':
+	          return _context2.stop();
+	      }
+	    }
+	  }, _marked[1], this, [[0, 8]]);
+	}
+	
+	function requestSession(action) {
+	  var result;
+	  return regeneratorRuntime.wrap(function requestSession$(_context3) {
+	    while (1) {
+	      switch (_context3.prev = _context3.next) {
+	        case 0:
+	          _context3.prev = 0;
+	          _context3.next = 3;
+	          return (0, _effects.call)(Api.requestSession);
+	
+	        case 3:
+	          result = _context3.sent;
+	          _context3.next = 6;
+	          return (0, _effects.put)(Actions.sessionSuccess(result));
+	
+	        case 6:
+	          _context3.next = 12;
+	          break;
+	
+	        case 8:
+	          _context3.prev = 8;
+	          _context3.t0 = _context3['catch'](0);
+	          _context3.next = 12;
+	          return (0, _effects.put)(Actions.sessionFailed(_context3.t0));
+	
+	        case 12:
+	        case 'end':
+	          return _context3.stop();
+	      }
+	    }
+	  }, _marked[2], this, [[0, 8]]);
+	}
+	
+	function watchAuth() {
+	  return regeneratorRuntime.wrap(function watchAuth$(_context4) {
+	    while (1) {
+	      switch (_context4.prev = _context4.next) {
+	        case 0:
+	          _context4.next = 2;
+	          return [(0, _reduxSaga.takeLatest)(Consts.LOGIN_REQUEST, requestLogin), (0, _reduxSaga.takeLatest)(Consts.SIGN_UP_REQUEST, requestSignUp), (0, _reduxSaga.takeLatest)(Consts.SESSION_REQUEST, requestSession)];
+	
+	        case 2:
+	        case 'end':
+	          return _context4.stop();
+	      }
+	    }
+	  }, _marked[3], this);
+	}
+
+/***/ },
+/* 580 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// make sure to encrypt this in future to prevent man in the middle attacks
+	
+	var requestLogin = exports.requestLogin = function requestLogin(loginInfo) {
+	  return fetch('/login', {
+	    method: 'POST',
+	    body: JSON.stringify(loginInfo)
+	  }).then(function (res) {
+	    return res.json();
+	  });
+	};
+	
+	var requestSignUp = exports.requestSignUp = function requestSignUp(signUpInfo) {
+	  return fetch('/signup', {
+	    method: 'POST',
+	    body: JSON.stringify(signUpInfo)
+	  }).then(function (res) {
+	    return res.json();
+	  });
+	};
+	
+	var requestSession = exports.requestSession = function requestSession() {
+	  return fetch('/session').then(function (res) {
+	    return res.json();
+	  });
+	};
 
 /***/ }
 /******/ ]);
