@@ -12,12 +12,8 @@ router.get('/version', (req, res, next) => {
 			console.log("Error on GET request for Riot's league versions list");
 		}
 		else {
-			// Parse for latest version
-			var currentVersion = body.split(',')[0];
-			// Remove the Array char '['
-			currentVersion = currentVersion.slice(1, currentVersion.length);
-			// Remove excess quotes
-			currentVersion = currentVersion.replace(/"/g, '');
+			var versions = JSON.parse(body);
+			currentVersion = versions[0]
 			res.send(currentVersion);
 		}
 	});
@@ -33,7 +29,6 @@ router.get('/champions', (req, res, next) => {
 		}
 		else {
 			res.json(body);
-			console.log(body);
 		}
 	});
 });

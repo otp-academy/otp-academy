@@ -13,15 +13,6 @@ import NoMatch from './components/NoMatch';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-class Champions extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			champions: []
-		};
-	}
-}
 
 ReactDOM.render(
   <Provider store={store}>
