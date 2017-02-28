@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import store from './store/configureStore';
 
 import AuthPage from './components/AuthPage';
+import Landing from './components/Landing';
 import ChampionsList from './components/ChampionsList';
 import NoMatch from './components/NoMatch';
 
@@ -18,6 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={AuthPage}/>
+      <Route path="/landing" component={Landing}/>
       <Route path="/champions" component={ChampionsList}/>
       <Route path="*" component={NoMatch}/>
     </Router>
