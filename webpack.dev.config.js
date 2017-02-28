@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
   entry: './client/src/index.js',
   output: {
@@ -5,7 +7,10 @@ module.exports = {
     path: __dirname + '/public'
   },
   resolve: {
-    extensions: ['', '.js', 'jsx', 'json']
+    extensions: ['', '.js', 'jsx', 'json'],
+    alias: {
+      Lib: path.resolve(__dirname, 'client/src/lib')
+    }
   },
   devtool: 'source-map',
   module: {

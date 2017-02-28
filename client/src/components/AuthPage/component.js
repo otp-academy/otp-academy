@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import OTPLogo from '../OTPLogo';
+import OTPLogo from 'Lib/OTPLogo';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import GuestBox from './GuestBox';
