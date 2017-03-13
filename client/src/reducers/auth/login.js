@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
         isFetching: true,
         error: null
       };
-    case Consts.LOGIN_FULFILLED:
+    case Consts.LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
