@@ -4,9 +4,9 @@ import { requestChampList, requestVersion } from '../../actions/champ';
 
 function mapStateToProps(state) {
   return {
-  	version: state.version,
-  	champions: state.champions,
-  	isFetching: state.isFetchingVersion || state.isFetchingChampList,
+  	version: state.champ.version.version,
+  	champions: state.champ.champList.champList,
+  	isFetching: state.champ.version.isFetchingVersion || state.champ.champList.isFetchingChampList,
   	error: state.error
   };
 }

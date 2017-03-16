@@ -9,6 +9,8 @@ export default class ChampionsList extends Component {
     this.state = {
       version: null
     };
+    this.getVersion = this.getVersion.bind(this);
+    this.getChampList = this.getChampList.bind(this);
   }
 
   getVersion() {
@@ -19,8 +21,7 @@ export default class ChampionsList extends Component {
     this.props.requestChampList();
   }
 
-  componentWillMount() {
-    var latestVersion = "7.3.3";
+  componentDidMount() {
     // fetch for latest league version to get champion's image URL
 
     // action from index.js
@@ -39,8 +40,8 @@ export default class ChampionsList extends Component {
     //   var champions = JSON.parse(res).data;
 
     
-    getVersion();
-    getChampList();
+    this.getVersion();
+    this.getChampList();
     // .then(data => {
     //   latestVersion = data;
     //   return this.props.requestChampList();
@@ -53,44 +54,48 @@ export default class ChampionsList extends Component {
       
 
     //   // reducer
-    //   for(var champName in champions) {
-    //     var champ = champions[champName];
-    //     champ.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/"+champ.image.full;
-    //   }
-    //   const alphabetizedChampionsList = {};
-    //   Object.keys(champions).sort().forEach(champName => {
-    //     alphabetizedChampionsList[champName] = champions[champName];
-    //   })
-    //   this.setState({ champions: alphabetizedChampionsList });
+    //   
     // })
     // .catch(err => {
     //   console.log("error: ", err)
     // })
   }
 
-  render() {
-    var champData = [];
-    if (this.props.isFetching) {
-      console.log("fetching")
-    }
-    else if (this.props.error) {
+  populateChampList() {
+    console.log("running populateChampList")
 
+    var champData = [];
+    var latestVersion = this.props.version;
+    var champions = this.props.champions;
+    var alphabetizedChampionsList = {};
+    console.log(this.props)
+    Object.keys(champions).sort().forEach(champName => {
+      alphabetizedChampionsList[champName] = champions[champName];
+    })
+    for (var champName in alphabetizedChampionsList) {
+      var champInfo = alphabetizedChampionsList[champName];
+      champInfo.imageURL = "http://ddragon.leagueoflegends.com/cdn/" + latestVersion + "/img/champion/"+champInfo.image.full;
+      champData.push(<div key={champName}> 
+        {champInfo.name} <img src={champInfo.imageURL}/> 
+        </div>);
     }
-    else {
-      console.log("no longer fetching")
-      if (this.state) {
-        for (var champName in this.props.champions) {
-          var champ = this.props.champions[champName];
-          champData.push(<div key={champName}> 
-            {champ.name} <img src={champ.imageURL}/> 
-            </div>);
-        }
-      }
-    }
+    return champData;
+  }
+
+  render() {
+    const isFetching = this.props.isFetching;
+    const champsList = this.props.champions;
     return (
-      <div className="container">
-        <h1>Champions List Page</h1>
-        {champData}
+      <div>
+        {isFetching && 
+          <h1>fetching</h1>
+        }
+        {!isFetching && champsList && 
+          <div className="container">
+            <h1>Champions List Page</h1>
+            {this.populateChampList()}
+          </div>
+        }
       </div>
     );
   }
