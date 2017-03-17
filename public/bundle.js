@@ -61140,7 +61140,7 @@
 	            !isFetching && Object.keys(champions).map(function (championName) {
 	              if (championName !== 'version') {
 	                var champion = champions[championName];
-	                return _react2.default.createElement(_ChampionBox2.default, { champ: champion });
+	                return _react2.default.createElement(_ChampionBox2.default, { key: championName, champ: champion });
 	              }
 	            })
 	          )

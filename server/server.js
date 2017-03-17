@@ -10,7 +10,7 @@ app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/../public/'));
 
-app.use('/api', require('./routes'));
+app.use('/', require('./routes'));
 
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
