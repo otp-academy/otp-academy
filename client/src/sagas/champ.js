@@ -8,6 +8,9 @@ import * as Consts from '../constants/champ';
 function* requestChampList(action) {
   try {
     const result = yield call(Api.requestChampList);
+    const result2 = yield call(Api.requestVersion)
+    yield put(Actions.versionSuccess(result2));
+    result.version = result2;
     yield put(Actions.champListSuccess(result));
   } catch (error) {
     yield put(Actions.champListFailed(error));
@@ -23,7 +26,7 @@ function* requestVersion(action) {
   }
 }
 
-export default function* watchAuth() {
+export default function* watchChamp() {
   yield [
     takeLatest(Consts.CHAMPLIST_REQUEST, requestChampList),
     takeLatest(Consts.VERSION_REQUEST, requestVersion)
