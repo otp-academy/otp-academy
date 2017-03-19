@@ -7,11 +7,10 @@ import * as Consts from '../constants/champ';
 
 function* requestChampList(action) {
   try {
-    const result = yield call(Api.requestChampList);
+    const result1 = yield call(Api.requestChampList);
     const result2 = yield call(Api.requestVersion)
     yield put(Actions.versionSuccess(result2));
-    result.version = result2;
-    yield put(Actions.champListSuccess(result));
+    yield put(Actions.champListSuccess(result1, result2));
   } catch (error) {
     yield put(Actions.champListFailed(error));
   }

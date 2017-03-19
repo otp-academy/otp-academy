@@ -17,8 +17,8 @@ const champListReducer = (state = initialState, action) => {
         error: null
       };
     case Consts.CHAMPLIST_SUCCESS:
-      var latestVersion = action.result.version;
-      var champList = action.result;
+      var latestVersion = action.result2;
+      var champList = action.result1;
       var sortedNames = [];
       for(var champKeyName in champList) {
         if (champKeyName === 'version') continue;
