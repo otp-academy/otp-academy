@@ -9,7 +9,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', 'jsx', 'json'],
     alias: {
-      Lib: path.resolve(__dirname, 'client/src/lib')
+      Lib: path.resolve(__dirname, 'client/src/lib'),
+      Actions: path.resolve(__dirname, 'client/src/actions'),
+      Constants: path.resolve(__dirname, 'client/src/constants')
     }
   },
   devtool: 'source-map',

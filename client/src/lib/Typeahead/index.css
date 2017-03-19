@@ -1,0 +1,8 @@
+.typeahead-library-hide {
+	display: none;
+}
+
+.typeahead-library ul {
+	list-style: none;
+	padding: 0;
+}
