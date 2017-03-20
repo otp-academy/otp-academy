@@ -4,8 +4,8 @@ var db = require('../db');
 var User = db.model('user');
 var Auth = require('../configure/auth-middleware');
 
-
-router.get('/', Auth.assertAdmin, function (req, res) {
+// router.get('/', Auth.assertAdmin, function (req, res) {
+router.get('/', function (req, res) {
     User.all()
     .then(users => {
         res.json(users);
