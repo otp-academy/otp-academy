@@ -1,9 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 
-export default ({champ}) => {
+export default ({imageOnly, champ}) => {
   return (
-    <div key={champ.name}> 
-      {champ.name} <img src={champ.imageURL}/> 
-    </div>
+		<span key={champ.name}> 
+	  	{
+	  		imageOnly ? (
+	  			<img src={champ.imageURL} style={{"margin":"2px", "border-radius":"5px", "width":"75px"}}/> 
+	  		) : (
+	  			<div>
+		      	{champ.name} <img src={champ.imageURL}/> 
+		      </div>
+			  )
+	  	}
+    </span>
   );
 }
