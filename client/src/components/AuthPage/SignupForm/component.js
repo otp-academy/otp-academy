@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Panel, Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap/lib';
 
 export default class SignUpForm extends Component {
   constructor(props) {

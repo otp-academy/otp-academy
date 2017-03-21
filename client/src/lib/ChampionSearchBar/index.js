@@ -6,10 +6,10 @@ const mapStateToProps = (state) => {
     champList: state.champ.data,
     myChampions: state.user.champions
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {};
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(component);

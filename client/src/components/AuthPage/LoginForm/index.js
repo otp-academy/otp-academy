@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestLogin } from '../../../actions/auth';
+import { requestLogin } from 'Actions/auth';
 
 function mapDispatchToProps(dispatch) {
   return {
