@@ -27,14 +27,13 @@ export default class ChampionsList extends Component {
             }
             {
               !isFetching && (
-
                 Object.keys(champions).map(championName => {
                   if (championName !== 'version') {
                     var champion = champions[championName];
                     return <ChampionBox key={championName} champ={champion}/>;
                   }
                 })
-                )
+              )
             }
           </div>
         </div>
