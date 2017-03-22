@@ -1,0 +1,17 @@
+.box {
+	margin: 2px;
+	text-align: center;
+	width: 75px;
+	display: inline-block;
+}
+
+p {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden; 
+}
+
+img {
+	border-radius: 5px;
+	width: 75px;
+}

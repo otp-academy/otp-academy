@@ -9,7 +9,7 @@ export default (props) => {
 	    	Object.keys(champions).map(championName => {
 	        if (championName !== 'version') {
 	          var champion = champions[championName];
-	    			return <ChampionBox key={championName} champ={champion} imageOnly={true}/>
+	    			return <ChampionBox key={championName} champ={champion}/>
 	        }
 	      })
 	    }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import ChampionBox from '../../components/ChampionBox'
 
 export default class Typeahead extends Component {
   constructor(props) {
@@ -17,10 +18,7 @@ export default class Typeahead extends Component {
             {
               data.slice(0, displayCount).map((champion, index) => {
                 return (
-                  <li key={index}>
-                    <img src={champion.imageURL} />
-                    <span>{ champion.name }</span>
-                  </li>
+                  <ChampionBox key={index} champ={champion}/>
                 );
               })
             }

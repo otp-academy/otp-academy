@@ -5,12 +5,12 @@ import MyChampionsList from './MyChampionsList';
 
 export default class ChampionSideBar extends Component {
   render() {
-    const {champList} = this.props;
+    const {champList, myChampions} = this.props;
     return (
       <div>
         <Panel header="My Champions">
           <ChampionSearchBar />
-          <MyChampionsList champList={champList}/>
+          <MyChampionsList champList={myChampions}/>
         </Panel>
       </div>
     );
