@@ -5,11 +5,12 @@ export default ({imageOnly, champ}) => {
 		<span key={champ.name}> 
 	  	{
 	  		imageOnly ? (
-	  			<img src={champ.imageURL} style={{"margin":"2px", "border-radius":"5px", "width":"75px"}}/> 
+	  			<img src={champ.imageURL}/> 
 	  		) : (
-	  			<div>
-		      	{champ.name} <img src={champ.imageURL}/> 
-		      </div>
+	  			<span className="box">
+            <img src={champ.imageURL}/>
+            <p title={champ.name}>{ champ.name }</p>
+          </span>
 			  )
 	  	}
     </span>
