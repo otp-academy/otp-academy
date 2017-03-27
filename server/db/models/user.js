@@ -36,6 +36,9 @@ module.exports = function (db) {
         ign: {
         	type: Sequelize.STRING
         },
+        champions: {
+            type: Sequelize.ARRAY(Sequelize.STRING)
+        },
         notes: {
             type: Sequelize.TEXT
         },
