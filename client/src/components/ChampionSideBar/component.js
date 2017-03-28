@@ -10,19 +10,20 @@ export default class ChampionSideBar extends Component {
   }
 
   addChampion(champion) {
-    var myChampions = this.props.myChampions;
+    const {myChampions} = this.props;
     // search if champ already exists in user's list
     var i = 0, len = Object.keys(myChampions).length;
     for (; i < len; i++) {
-      if (myChampions[i] === champion.name) break;
+      if (myChampions[i] === champion.key) break;
     }
-    if (i === len) myChampions[i] = champion.name;
+    if (i === len) myChampions[i] = champion.key;
+    console.log(myChampions)
     this.setState({
       myChampions
     });
     // add champion to user.champions in store and user's champion array in database
     // make sure to only do so if user is logged in
-    if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.name);
+    if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.key);
   }
 
   render() {

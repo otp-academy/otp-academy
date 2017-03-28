@@ -39,6 +39,7 @@ router.put('/:userId/champions', function (req, res, next) {
     if (Object.keys(req.body).length === 0) return;
     var updatedChampions = req.requestedUser.champions;
     updatedChampions.push(req.body.champion);
+    updatedChampions.sort();
     req.requestedUser.updateAttributes({
         champions: updatedChampions
     })
