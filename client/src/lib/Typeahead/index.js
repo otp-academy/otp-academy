@@ -23,6 +23,7 @@ export default class Typeahead extends Component {
                     champ={ champion }
                     clearSearchBar={ clearSearchBar }
                     addChampion={ addChampion }
+                    add={ true }
                   />
                 );
               })

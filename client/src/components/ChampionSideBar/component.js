@@ -10,7 +10,7 @@ export default class ChampionSideBar extends Component {
   }
 
   addChampion(champion) {
-    var myChampions = this.props.myChampions;
+    const {myChampions} = this.props;
     // search if champ already exists in user's list
     var i = 0, len = Object.keys(myChampions).length;
     for (; i < len; i++) {
