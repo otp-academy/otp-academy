@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
-export default ({imageOnly, champ}) => {
+export default ({imageOnly, champ, addChampion, clearSearchBar}) => {
   return (
-		<span key={champ.name}> 
+		<span onClick={() => {
+			addChampion(champ);
+			clearSearchBar();
+		}}> 
 	  	{
 	  		imageOnly ? (
 	  			<img src={champ.imageURL}/> 

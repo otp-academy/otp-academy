@@ -29,7 +29,7 @@ var seedUsers = function () {
             password: 'password',
             age: 5,
             gender: 'Female',
-            champions: ['Aatrox', 'Ahri'],
+            champions: ['Ahri', 'Tryndamere', 'Kennen'],
             ign: chance.word(),
             notes: chance.paragraph(),
             isAdmin: false

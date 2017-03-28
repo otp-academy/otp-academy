@@ -1,5 +1,5 @@
 import * as Consts from '../constants/user';
 
-export const requestUserInfo = () => ({type: Consts.USERINFO_REQUEST});
-export const userInfoSuccess = (result) => ({type: Consts.USERINFO_SUCCESS, result});
-export const userInfoFailed = error => ({type: Consts.USERINFO_FAILED, error});
+export const requestAddChamp = (userId, champion) => ({type: Consts.ADDCHAMP_REQUEST, userId, champion});
+export const addChampSuccess = (result) => ({type: Consts.ADDCHAMP_SUCCESS, result});
+export const addChampFailed = error => ({type: Consts.ADDCHAMP_FAILED, error});

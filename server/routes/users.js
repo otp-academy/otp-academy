@@ -27,11 +27,27 @@ router.param('userId', function(req, res, next, userId) {
     .catch(next);
 });
 
-router.get('/:userId', Auth.assertAdminOrSelf, function (req, res) {
+router.get('/:userId/champions', function (req, res) {
+    res.json(req.requestedUser.champions);
+});
+
+router.get('/:userId', function (req, res) {
     res.json(req.requestedUser);
 });
 
-router.put('/:userId', Auth.assertAdminOrSelf, function (req, res, next) {
+router.put('/:userId/champions', function (req, res, next) {
+    if (Object.keys(req.body).length === 0) return;
+    var updatedChampions = req.requestedUser.champions;
+    updatedChampions.push(req.body.champion);
+    req.requestedUser.updateAttributes({
+        champions: updatedChampions
+    })
+    .then(function(user) {
+        res.json(user.champions);
+    });
+});
+
+router.put('/:userId', function (req, res, next) {
     req.requestedUser.update(req.body)
     .then(function(user) {
         res.send(user);
@@ -39,7 +55,7 @@ router.put('/:userId', Auth.assertAdminOrSelf, function (req, res, next) {
     .catch(next);
 });
 
-router.delete('/:userId', Auth.assertAdminOrSelf, function(req, res, next) {
+router.delete('/:userId', function(req, res, next) {
     req.requestedUser.destroy()
     .then(function() {
         res.sendStatus(204)

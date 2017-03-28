@@ -9,7 +9,7 @@ export default class Typeahead extends Component {
 
   render() {
     const className = 'typeahead-library';
-    const { show, onClick, data, displayCount } = this.props;
+    const { show, onClick, data, displayCount, addChampion, clearSearchBar } = this.props;
 
     return (
       <div className={ className + (show ? '' : '-hide') }>
@@ -18,7 +18,12 @@ export default class Typeahead extends Component {
             {
               data.slice(0, displayCount).map((champion, index) => {
                 return (
-                  <ChampionBox key={index} champ={champion}/>
+                  <ChampionBox 
+                    key={ index }
+                    champ={ champion }
+                    clearSearchBar={ clearSearchBar }
+                    addChampion={ addChampion }
+                  />
                 );
               })
             }
