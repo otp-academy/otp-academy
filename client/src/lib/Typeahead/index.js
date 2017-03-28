@@ -18,7 +18,7 @@ export default class Typeahead extends Component {
             {
               data.slice(0, displayCount).map((champion, index) => {
                 return (
-                  <ChampionBox key={index} champ={champion}/>
+                  <ChampionBox key={index} champ={champion} />
                 );
               })
             }

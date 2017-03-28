@@ -9,8 +9,8 @@ export default class ChampionSideBar extends Component {
     return (
       <div>
         <Panel header="My Champions">
-          <ChampionSearchBar />
           <MyChampionsList champList={champList} myChampions={myChampions} />
+          <ChampionSearchBar />
         </Panel>
       </div>
     );
