@@ -9,6 +9,7 @@ export default class ChampionSearchBar extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.filterChamps = this.filterChamps.bind(this);
+    this.addChampion = this.addChampion.bind(this);
   }
 
   handleChange(e) {
@@ -30,6 +31,14 @@ export default class ChampionSearchBar extends Component {
     return filtered;
   }
 
+  addChampion(champion) {
+    this.setState({
+      value: ''
+    });
+    console.log(champion)
+    // add champion to mychampions
+  }
+
   render() {
     const { champList, myChampions, clickAction } = this.props;
     return (
@@ -39,7 +48,7 @@ export default class ChampionSearchBar extends Component {
           show={ this.state.value }
           displayCount={ 4 }
           data={ this.filterChamps(this.state.value, myChampions, champList) }
-          onClick={ (champion) => clickAction(champion) }
+          addChampion={ this.addChampion }
         />
       </div>
     );
