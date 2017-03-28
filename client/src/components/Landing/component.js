@@ -3,7 +3,7 @@ import ChampionSideBar from '../ChampionSideBar';
 
 export default class Landing extends Component {
   componentDidMount() {
-    this.props.requestChampList();
+    if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
   }
   
   render() {
