@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-export default ({imageOnly, champ, addChampion, clearSearchBar, add}) => {
+export default (props) => {
+	const {imageOnly, champ, addChampion, clearSearchBar, add, deleteChampion} = props;
   return (
 		<span onClick={() => {
 			if (add) {
@@ -22,7 +23,7 @@ export default ({imageOnly, champ, addChampion, clearSearchBar, add}) => {
 	        ) : (
 	        	<span className="box">
 	            <img src={champ.imageURL}/>
-	            <button>x</button>
+	            <button onClick={() => deleteChampion(champ)}>x</button>
 	            <p title={champ.name}>{ champ.name }</p>
 	          </span>
 					)
