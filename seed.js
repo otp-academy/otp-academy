@@ -29,6 +29,7 @@ var seedUsers = function () {
             password: 'password',
             age: 5,
             gender: 'Female',
+            champions: ['Aatrox', 'Ahri'],
             ign: chance.word(),
             notes: chance.paragraph(),
             isAdmin: false
@@ -40,6 +41,7 @@ var seedUsers = function () {
             password: 'potus',
             age: 54,
             gender: 'Male',
+            champions: ['Aatrox', 'Heimerdinger' ],
             ign: chance.word(),
             notes: chance.paragraph(),
             isAdmin: true
@@ -51,6 +53,7 @@ var seedUsers = function () {
             password: 'm',
             age: 54,
             gender: 'Male',
+            champions: ["Kha'zix", 'awhdoiawhd', 'Tryndamere'],
             ign: chance.word(),
             notes: chance.paragraph(),
             isAdmin: true

@@ -2,13 +2,15 @@ import React from 'react';
 import ChampionBox from '../ChampionBox';
 
 export default (props) => {
-  const champions = props.champList
+  const champList = props.champList;
+  const myChampions = props.myChampions;
   return (
     <div>
     	{
-	    	Object.keys(champions).map(championName => {
-	        if (championName !== 'version') {
-	          var champion = champions[championName];
+	    	Object.keys(myChampions).map(index => {
+	    		var championName = myChampions[index];
+	        if (championName !== 'version' && champList.hasOwnProperty(championName)) {
+	          var champion = champList[championName];
 	    			return <ChampionBox key={championName} champ={champion}/>
 	        }
 	      })

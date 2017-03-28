@@ -3,7 +3,10 @@ import component from './component';
 import { requestChampList } from 'Actions/champ';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+  	champList: state.champ.data,
+    myChampions: state.user.champions
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
