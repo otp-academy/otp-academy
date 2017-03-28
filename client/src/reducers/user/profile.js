@@ -9,6 +9,7 @@ export default (state = initialState, action) => {
     case Consts.SESSION_SUCCESS:
       return {
         ...state,
+        id: action.result.id
         // ...action.result.profile
       };
     case Consts.LOGIN_FAILED:

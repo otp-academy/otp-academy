@@ -20,9 +20,9 @@ export default class ChampionSideBar extends Component {
     this.setState({
       myChampions
     });
-    console.log(myChampions)
-    console.log(champion)
-    // add champion to user.champions in store
+    // add champion to user.champions in store and user's champion array in database
+    // make sure to only do so if user is logged in
+    if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.name);
   }
 
   render() {
