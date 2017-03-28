@@ -2,12 +2,14 @@ var jwt = require('jsonwebtoken');
 var router = require('express').Router();
 module.exports = router;
 
-var User = require('../db/models/user');
+var db = require('../db');
+var User = db.model('user');
 
 router.use('/api', require('./api'));
 router.use('/users', require('./users'));
 router.post('/login', (req, res) => {
 	console.log(req.body)
+	const userInfo = req.body;
 	// var token = jwt.sign({ 
 	// 	sub : "1234567890",
 	// 	name : "Ado Kukic",
@@ -15,7 +17,7 @@ router.post('/login', (req, res) => {
 	// }, 'secret', { expiresIn: '24h' });
 	User.findOne({
 		where: {
-
+			email: userInfo.username
 		}
 	})
 	.then(userData => {

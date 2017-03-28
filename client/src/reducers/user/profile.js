@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case Consts.SESSION_SUCCESS:
       return {
         ...state,
-        ...action.result.user.profile
+        // ...action.result.profile
       };
     case Consts.LOGIN_FAILED:
     case Consts.SIGN_UP_FAILED:
