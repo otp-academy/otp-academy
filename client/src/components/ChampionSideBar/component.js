@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Panel from 'react-bootstrap/lib/Panel';
 import ChampionSearchBar from 'Lib/ChampionSearchBar';
 import MyChampionsList from './MyChampionsList';
-
+import * as Actions from 'Actions/user';
 export default class ChampionSideBar extends Component {
   constructor(props) {
     super(props);
@@ -19,13 +19,12 @@ export default class ChampionSideBar extends Component {
     for (var i = 0; i < Object.keys(myChampions).length; i++) {
       if (myChampions[i] === champion.key) return;
     }
-    myChampions[i] = champion.key;
-    this.setState({
-      myChampions
-    });
+    myChampions[Object.keys(myChampions).length] = champion.key;
     // add champion to user.champions in store and user's champion array in database
     // make sure to only do so if user is logged in
+    this.setState({})
     if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.key);
+    else Actions.addChampSuccess(myChampions);
   }
 
   deleteChampion(champion) {
@@ -41,8 +40,7 @@ export default class ChampionSideBar extends Component {
   }
 
   render() {
-    const {champList} = this.props;
-    const {myChampions} = this.state;
+    const {champList, myChampions} = this.props;
     return (
       <div>
         <Panel header="My Champions">
