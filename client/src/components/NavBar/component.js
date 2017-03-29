@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap/lib';
+import { Link } from 'react-router';
 
 export default class NavBar extends Component {
   render() {
@@ -10,7 +11,9 @@ export default class NavBar extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                OTPAcademy
+                <Link to={{ pathname: '/' }}>
+                  OTPAcademy
+                </Link>
               </Navbar.Brand>
               <Navbar.Toggle/>
             </Navbar.Header>
