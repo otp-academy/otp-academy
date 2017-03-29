@@ -6,6 +6,9 @@ import MyChampionsList from './MyChampionsList';
 export default class ChampionSideBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      myChampions: props.myChampions 
+    }
     this.addChampion = this.addChampion.bind(this);
     this.deleteChampion = this.deleteChampion.bind(this);
   }
@@ -13,11 +16,10 @@ export default class ChampionSideBar extends Component {
   addChampion(champion) {
     const {myChampions} = this.props;
     // search if champ already exists in user's list
-    var i = 0, len = Object.keys(myChampions).length;
-    for (; i < len; i++) {
-      if (myChampions[i] === champion.key) break;
+    for (var i = 0; i < Object.keys(myChampions).length; i++) {
+      if (myChampions[i] === champion.key) return;
     }
-    if (i === len) myChampions[i] = champion.key;
+    myChampions[i] = champion.key;
     this.setState({
       myChampions
     });
@@ -27,11 +29,20 @@ export default class ChampionSideBar extends Component {
   }
 
   deleteChampion(champion) {
-    
+    const {myChampions} = this.props;
+    var arrMyChampions = Array.from(myChampions);
+    var indexToDelete = arrMyChampions.findIndex(el => el === champion.key);
+    arrMyChampions.splice(indexToDelete, 1);
+    this.setState({
+      myChampions: arrMyChampions
+    });
+    // delete champion from user.champions in store and user's champion array in database if user is logged in
+    // if (this.props.userId) this.props.requestDeleteChamp(this.props.userId, champion.key);
   }
 
   render() {
-    const {champList, myChampions} = this.props;
+    const {champList} = this.props;
+    const {myChampions} = this.state;
     return (
       <div>
         <Panel header="My Champions">
