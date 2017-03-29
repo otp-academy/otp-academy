@@ -7,6 +7,7 @@ export default class ChampionSideBar extends Component {
   constructor(props) {
     super(props);
     this.addChampion = this.addChampion.bind(this);
+    this.deleteChampion = this.deleteChampion.bind(this);
   }
 
   addChampion(champion) {
@@ -17,7 +18,6 @@ export default class ChampionSideBar extends Component {
       if (myChampions[i] === champion.key) break;
     }
     if (i === len) myChampions[i] = champion.key;
-    console.log(myChampions)
     this.setState({
       myChampions
     });
@@ -26,12 +26,16 @@ export default class ChampionSideBar extends Component {
     if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.key);
   }
 
+  deleteChampion(champion) {
+    
+  }
+
   render() {
     const {champList, myChampions} = this.props;
     return (
       <div>
         <Panel header="My Champions">
-          <MyChampionsList champList={champList} myChampions={myChampions} />
+          <MyChampionsList champList={champList} myChampions={myChampions} deleteChampion={this.deleteChampion} />
           <ChampionSearchBar addChampion={this.addChampion} />
         </Panel>
       </div>
