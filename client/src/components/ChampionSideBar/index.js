@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestAddChamp } from 'Actions/user';
+import { requestAddChamp, requestDeleteChamp } from 'Actions/user';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  	requestAddChamp: (userId, champion) => dispatch(requestAddChamp(userId, champion))
+  	requestAddChamp: (userId, champion) => dispatch(requestAddChamp(userId, champion)),
+  	requestDeleteChamp: (userId, champion) => dispatch(requestDeleteChamp(userId, champion))
   };
 }
 

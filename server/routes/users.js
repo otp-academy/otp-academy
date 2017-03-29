@@ -39,7 +39,7 @@ router.put('/:userId/champions', function (req, res, next) {
     if (Object.keys(req.body).length === 0) return;
     var updatedChampions = req.requestedUser.champions;
     updatedChampions.push(req.body.champion);
-    updatedChampions.sort();
+    // updatedChampions.sort();
     req.requestedUser.updateAttributes({
         champions: updatedChampions
     })
@@ -54,6 +54,19 @@ router.put('/:userId', function (req, res, next) {
         res.send(user);
     })
     .catch(next);
+});
+
+router.delete('/:userId/champions', function (req, res, next) {
+    if (Object.keys(req.body).length === 0) return;
+    var updatedChampions = req.requestedUser.champions;
+    var index = updatedChampions.find(req.body.champion);
+    updatedChampions.splice(index, 1);
+    req.requestedUser.updateAttributes({
+        champions: updatedChampions
+    })
+    .then(function(user) {
+        res.json(user.champions);
+    });
 });
 
 router.delete('/:userId', function(req, res, next) {

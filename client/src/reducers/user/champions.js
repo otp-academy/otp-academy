@@ -10,6 +10,7 @@ export default (state = initialState, action) => {
     case ConstsAuth.SIGN_UP_SUCCESS:
     case ConstsAuth.SESSION_SUCCESS:
     case ConstsUser.ADDCHAMP_SUCCESS:
+    case ConstsUser.DELETECHAMP_SUCCESS:
       return {
         ...state,
         ...action.result.champions
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
     case ConstsAuth.SIGN_UP_FAILED:
     case ConstsAuth.SESSION_FAILED:
     case ConstsUser.ADDCHAMP_FAILED:
+    case ConstsUser.DELETECHAMP_FAILED:
       return {};
     default:
       return state;

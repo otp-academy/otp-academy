@@ -14,8 +14,18 @@ function* requestAddChamp(action) {
   }
 }
 
+function* requestDeleteChamp(action) {
+  try {
+    const result = yield call(Api.requestDeleteChamp, action.userId, action.champion);
+    yield put(Actions.deleteChampSuccess(result));
+  } catch (error) {
+    yield put(Actions.deleteChampFailed(error));
+  }
+}
+
 export default function* watchUser() {
   yield [
     takeLatest(Consts.ADDCHAMP_REQUEST, requestAddChamp),
+    takeLatest(Consts.DELETECHAMP_REQUEST, requestDeleteChamp)
   ];
 }
