@@ -9,11 +9,15 @@ export default (state = initialState, action) => {
     case ConstsAuth.LOGIN_SUCCESS:
     case ConstsAuth.SIGN_UP_SUCCESS:
     case ConstsAuth.SESSION_SUCCESS:
+      return {
+        ...state,
+        ...action.result.champions
+      };
     case ConstsUser.ADDCHAMP_SUCCESS:
     case ConstsUser.DELETECHAMP_SUCCESS:
       return {
         ...state,
-        ...action.result.champions
+        ...action.result
       };
     case ConstsAuth.LOGIN_FAILED:
     case ConstsAuth.SIGN_UP_FAILED:
