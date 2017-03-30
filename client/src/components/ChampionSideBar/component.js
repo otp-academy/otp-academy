@@ -19,10 +19,7 @@ export default class ChampionSideBar extends Component {
     for (var i = 0; i < Object.keys(myChampions).length; i++) {
       if (myChampions[i] === champion.key) return;
     }
-    myChampions[i] = champion.key;
-    this.setState({
-      myChampions
-    });
+    // myChampions[Object.keys(myChampions).length] = champion.key;
     // add champion to user.champions in store and user's champion array in database
     // make sure to only do so if user is logged in
     if (this.props.userId) this.props.requestAddChamp(this.props.userId, champion.key);
@@ -30,19 +27,15 @@ export default class ChampionSideBar extends Component {
 
   deleteChampion(champion) {
     const {myChampions} = this.props;
-    var arrMyChampions = Array.from(myChampions);
-    var indexToDelete = arrMyChampions.findIndex(el => el === champion.key);
-    arrMyChampions.splice(indexToDelete, 1);
-    this.setState({
-      myChampions: arrMyChampions
-    });
+    // var arrMyChampions = Array.from(myChampions);
+    // var indexToDelete = arrMyChampions.findIndex(el => el === champion.key);
+    // arrMyChampions.splice(indexToDelete, 1);
     // delete champion from user.champions in store and user's champion array in database if user is logged in
-    // if (this.props.userId) this.props.requestDeleteChamp(this.props.userId, champion.key);
+    if (this.props.userId) this.props.requestDeleteChamp(this.props.userId, champion.key);
   }
 
   render() {
-    const {champList} = this.props;
-    const {myChampions} = this.state;
+    const {champList, myChampions} = this.props;
     return (
       <div>
         <Panel header="My Champions">
