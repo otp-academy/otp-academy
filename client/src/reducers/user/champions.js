@@ -14,11 +14,12 @@ export default (state = initialState, action) => {
         ...action.result.champions
       };
     case ConstsUser.ADDCHAMP_SUCCESS:
-    case ConstsUser.DELETECHAMP_SUCCESS:
       return {
         ...state,
         ...action.result
       };
+    case ConstsUser.DELETECHAMP_SUCCESS:
+      return action.result;
     case ConstsAuth.LOGIN_FAILED:
     case ConstsAuth.SIGN_UP_FAILED:
     case ConstsAuth.SESSION_FAILED:

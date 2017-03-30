@@ -59,7 +59,8 @@ router.put('/:userId', function (req, res, next) {
 router.delete('/:userId/champions', function (req, res, next) {
     if (Object.keys(req.body).length === 0) return;
     var updatedChampions = req.requestedUser.champions;
-    var index = updatedChampions.find(req.body.champion);
+    var index = updatedChampions.indexOf(req.body.champion);
+    if (index === -1) next(new Error('Champion: ' + req.body.champion + 'does not exist in ' + updatedChampions));
     updatedChampions.splice(index, 1);
     req.requestedUser.updateAttributes({
         champions: updatedChampions
