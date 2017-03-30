@@ -31,7 +31,15 @@ var seedUsers = function () {
             gender: 'Female',
             champions: ['Ahri', 'Tryndamere', 'Kennen'],
             ign: chance.word(),
-            notes: chance.paragraph(),
+            notes: JSON.stringify({
+                'Ahri': {
+                    'Teemo': 'Against Teemo, can trade at level 1, 4, and 6',
+                    'Irelia': chance.paragraph()
+                },
+                'Tryndamere': {
+                    'Jayce': 'Play passive until the game ends'
+                }
+            }),
             isAdmin: false
         },
         {
@@ -41,9 +49,16 @@ var seedUsers = function () {
             password: 'potus',
             age: 54,
             gender: 'Male',
-            champions: ['Aatrox', 'Heimerdinger' ],
+            champions: ['Aatrox', 'Heimerdinger'],
             ign: chance.word(),
-            notes: chance.paragraph(),
+            notes: JSON.stringify({
+                'Aatrox': {
+                    'Darius': 'Ask for ganks, can proc bloodwell and let jungler clean up'
+                },
+                'Heimerdinger': {
+                    'Shaco': 'make turrets to fight shacos boxes'
+                }
+            }),
             isAdmin: true
         },
         {
@@ -55,7 +70,11 @@ var seedUsers = function () {
             gender: 'Male',
             champions: ["Kha'zix", 'awhdoiawhd', 'Tryndamere'],
             ign: chance.word(),
-            notes: chance.paragraph(),
+            notes: JSON.stringify({
+                'Tryndamere': {
+                    'Darius': 'Pull the wave and ask for ganks. Outscale him late game.'
+                }
+            }),
             isAdmin: true
         },
     ];
@@ -68,7 +87,6 @@ var seedUsers = function () {
             email: name.join('').toLowerCase()+'@otpacademy.com',
             password: 'password',
             ign: chance.word(),
-            notes: chance.paragraph(),  
             age: chance.integer({min: 18, max: 70}),
             gender: chance.pickone(['Male', 'Female']),
             isAdmin: chance.bool({likelihood: 30})
