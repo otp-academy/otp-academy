@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
 export default (props) => {
-	const {imageOnly, champ, addChampion, clearSearchBar, add, deleteChampion} = props;
-  return (
+	const {imageOnly, champ, addChampion, clearSearchBar, add, deleteChampion, createChampNotes} = props;
+	return (
 		<span onClick={() => {
 			if (add) {
 				addChampion(champ);
 				clearSearchBar();
 			} else {
-
+				createChampNotes(champ);
 			}
 		}}> 
 	  	{
