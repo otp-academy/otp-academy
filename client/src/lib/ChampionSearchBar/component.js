@@ -38,15 +38,18 @@ export default class ChampionSearchBar extends Component {
   }
 
   render() {
-    const { champList, myChampions, addChampion, clickAction } = this.props;
+    const { champList, myChampions, addChampion, createNotesPanel, showMatchupNotes } = this.props;
+    var placeholder = addChampion ? "Add a Champion" : "Select Opponent";
     return (
       <div>
-        <input type="text" value={ this.state.value } onChange={this.handleChange} placeholder="Add a Champion"/>
+        <input type="text" value={ this.state.value } onChange={this.handleChange} placeholder={placeholder}/>
         <Typeahead
           show={ this.state.value }
           displayCount={ 4 }
           data={ this.filterChamps(this.state.value, myChampions, champList) }
           addChampion={ addChampion }
+          createNotesPanel={ createNotesPanel }
+          showMatchupNotes={ showMatchupNotes }
           clearSearchBar={ this.clearSearchBar }
         />
       </div>

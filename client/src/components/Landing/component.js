@@ -8,16 +8,16 @@ export default class Landing extends Component {
     this.state = {
       showComponent: false
     };
-    this.createChampNotes = this.createChampNotes.bind(this);
+    this.createNotesPanel = this.createNotesPanel.bind(this);
   }
   componentDidMount() {
     if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
   }
   
-  createChampNotes(champ) {
-    console.log(champ)
+  createNotesPanel(champ) {
     this.setState({
-      showComponent: true
+      showComponent: true,
+      currentChamp: champ
     });
   }
 
@@ -25,10 +25,9 @@ export default class Landing extends Component {
     return (
       <div className="container-fluid">
         <div className="col-lg-4">
-          <ChampionSideBar createChampNotes={ this.createChampNotes }/>
-          {this.state.showComponent ? 
-            <ChampionNotes champ={ this.props.myChampions[0] } /> :
-            null
+          <ChampionSideBar createNotesPanel={ this.createNotesPanel }/>
+          {this.state.showComponent && 
+            <ChampionNotes champ={ this.state.currentChamp }/>
           }
         </div>
       </div>  

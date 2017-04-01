@@ -33,7 +33,7 @@ export default class ChampionSideBar extends Component {
   }
 
   render() {
-    const {champList, myChampions, createChampNotes} = this.props;
+    const {champList, myChampions, createNotesPanel} = this.props;
     return (
       <div>
         <Panel header="My Champions">
@@ -41,7 +41,7 @@ export default class ChampionSideBar extends Component {
             champList={champList}
             myChampions={myChampions}
             deleteChampion={this.deleteChampion}
-            createChampNotes={createChampNotes}
+            createNotesPanel={createNotesPanel}
           />
           <ChampionSearchBar addChampion={this.addChampion} />
         </Panel>

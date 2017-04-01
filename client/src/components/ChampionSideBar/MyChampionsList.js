@@ -2,7 +2,7 @@ import React from 'react';
 import ChampionBox from '../ChampionBox';
 
 export default (props) => {
-  const {champList, myChampions, deleteChampion, createChampNotes} = props;
+  const {champList, myChampions, deleteChampion, createNotesPanel} = props;
   return (
     <div>
     	{
@@ -16,7 +16,7 @@ export default (props) => {
 	    					champ={champion}
 	    					add={false}
 	    					deleteChampion={deleteChampion}
-	    					createChampNotes={createChampNotes}
+	    					createNotesPanel={createNotesPanel}
 	    				/>
 	    			)
 	        }
