@@ -6,9 +6,7 @@ import MyChampionsList from './MyChampionsList';
 export default class ChampionSideBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      myChampions: props.myChampions 
-    }
+    
     this.addChampion = this.addChampion.bind(this);
     this.deleteChampion = this.deleteChampion.bind(this);
   }
@@ -35,11 +33,16 @@ export default class ChampionSideBar extends Component {
   }
 
   render() {
-    const {champList, myChampions} = this.props;
+    const {champList, myChampions, createNotesPanel} = this.props;
     return (
       <div>
         <Panel header="My Champions">
-          <MyChampionsList champList={champList} myChampions={myChampions} deleteChampion={this.deleteChampion} />
+          <MyChampionsList
+            champList={champList}
+            myChampions={myChampions}
+            deleteChampion={this.deleteChampion}
+            createNotesPanel={createNotesPanel}
+          />
           <ChampionSearchBar addChampion={this.addChampion} />
         </Panel>
       </div>

@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
 export default (props) => {
-	const {imageOnly, champ, addChampion, clearSearchBar, add, deleteChampion} = props;
-  return (
+	const {imageOnly, champ, addChampion, clearSearchBar, deleteChampion, createNotesPanel, showMatchupNotes, add} = props;
+	return (
 		<span onClick={() => {
 			if (add) {
-				addChampion(champ);
+				if (addChampion) addChampion(champ);
+				else if (showMatchupNotes) showMatchupNotes(champ);
 				clearSearchBar();
-			} else {
-
 			}
+			else if (createNotesPanel) createNotesPanel(champ);
 		}}> 
 	  	{
 	  		imageOnly ? (
@@ -23,7 +23,10 @@ export default (props) => {
 	        ) : (
 	        	<span className="box">
 	            <img src={champ.imageURL}/>
-	            <button onClick={() => deleteChampion(champ)}>x</button>
+	            <button onClick={(e) => {
+	            	e.stopPropagation();
+	            	deleteChampion(champ);
+	            }}>x</button>
 	            <p title={champ.name}>{ champ.name }</p>
 	          </span>
 					)
