@@ -8,6 +8,7 @@ export default class ChampionNotes extends Component {
 		super(props);
 		this.state = {
 			currentNote: null,
+			currentChamp: this.props.champ,
 			enemyChamp: null
 		};
 		this.showMatchupNotes = this.showMatchupNotes.bind(this);
@@ -20,6 +21,16 @@ export default class ChampionNotes extends Component {
 			enemyChamp: enemyChamp,
 			currentNote: notes[champ.key][enemyChamp.key]
 		});
+	}
+
+	componentDidUpdate() {
+		if (this.props.champ !== this.state.currentChamp) {
+			this.setState({
+				currentChamp: this.props.champ,
+				currentNote: null,
+				enemyChamp: null
+			});
+		}
 	}
 
 	render() {
