@@ -1,7 +1,7 @@
 // make sure to encrypt this in future to prevent man in the middle attacks
 
 export const requestLogin = (loginInfo) => {
-  return fetch('/login', {
+  return fetch('/auth/login', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ export const requestLogin = (loginInfo) => {
 }
 
 export const requestSignUp = (signUpInfo) => {
-  return fetch('/signup', {
+  return fetch('/auth/signup', {
     method: 'POST',
     body: JSON.stringify(signUpInfo)
   })
