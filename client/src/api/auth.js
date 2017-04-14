@@ -1,8 +1,9 @@
 // make sure to encrypt this in future to prevent man in the middle attacks
-import { checkStatus } from './utils';
+import { checkStatus, baseFetchOptions } from './utils';
 
 export const requestLogin = (loginInfo) => {
   return fetch('/auth/login', {
+    ...baseFetchOptions,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -15,6 +16,7 @@ export const requestLogin = (loginInfo) => {
 
 export const requestSignUp = (signUpInfo) => {
   return fetch('/auth/signup', {
+    ...baseFetchOptions,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -26,7 +28,13 @@ export const requestSignUp = (signUpInfo) => {
 }
 
 export const requestSession = () => {
-  return fetch('/auth/session')
+  return fetch('/auth/session', baseFetchOptions)
+  .then(res => res.json())
+  .then(checkStatus);
+}
+
+export const requestLogout = () => {
+  return fetch('/auth/logout', baseFetchOptions)
   .then(res => res.json())
   .then(checkStatus);
 }

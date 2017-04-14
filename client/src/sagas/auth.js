@@ -34,6 +34,14 @@ function* requestSession(action) {
   }
 }
 
+function *requestLogout(action) {
+  try {
+    yield call(Api.requestLogout);
+  } catch (error) {
+    
+  }
+}
+
 export default function* watchAuth() {
   yield [
     takeLatest(Consts.LOGIN_REQUEST, requestLogin),

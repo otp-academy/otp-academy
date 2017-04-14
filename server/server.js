@@ -21,10 +21,10 @@ app.use(session({
   }
 }));
 
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(req.session);
+  next();
+});
 
 app.use(express.static(__dirname + '/../public/'));
 app.use(bodyParser.urlencoded({ extended: true }));

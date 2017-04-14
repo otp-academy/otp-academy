@@ -25,6 +25,7 @@ router.post('/login', (req, res, next) => {
         id: user.id,
         username: user.username
       };
+      console.log('asdfdsfasf', req.session);
       res.json({
         username: user.username,
         ign: user.ign,
@@ -97,6 +98,13 @@ router.get('/session', (req, res, next) => {
     })
   })
   .catch(next);
+});
+
+router.get('/logout', (req, res, next) {
+  req.session.destroy();
+  res.json({
+    message: 'Logged out successfully'
+  });
 });
 
 module.exports = router;

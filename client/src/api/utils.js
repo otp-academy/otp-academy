@@ -4,3 +4,7 @@ export const checkStatus = data => {
   }
   return data;
 }
+
+export const baseFetchOptions = {
+  credentials: 'same-origin'
+};
