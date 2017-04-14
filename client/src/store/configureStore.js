@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import reduxThunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
@@ -12,7 +13,8 @@ const sagaMiddleware = createSagaMiddleware();
 export default createStore(
   rootReducer, 
   applyMiddleware(
-    sagaMiddleware, 
+    sagaMiddleware,
+    reduxThunk,
     routerMiddleware(browserHistory), 
     createLogger()
   )

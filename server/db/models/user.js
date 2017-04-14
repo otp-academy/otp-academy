@@ -1,24 +1,17 @@
 'use strict';
-var crypto = require('crypto');
-var _ = require('lodash');
-var Sequelize = require('sequelize');
+const crypto = require('crypto');
+const _ = require('lodash');
+const Sequelize = require('sequelize');
 
 module.exports = function (db) {
 
     db.define('user', {
-        first_name: {
-            type: Sequelize.STRING,
-        },
-        last_name: {
-            type: Sequelize.STRING,
-        },
-        email: {
+        username: {
             type: Sequelize.STRING,
             allowNull: false,
             unique: true,
             validate: {
                 notEmpty: true,
-                isEmail: true,
             }
         },
         password: {
@@ -27,24 +20,17 @@ module.exports = function (db) {
         salt: {
             type: Sequelize.STRING
         },
-        age: {
-            type: Sequelize.INTEGER
-        },
-        gender: {
-            type: Sequelize.STRING
-        },
         ign: {
-        	type: Sequelize.STRING
+        	type: Sequelize.STRING,
+            defaultValue: ''
         },
         champions: {
-            type: Sequelize.ARRAY(Sequelize.STRING)
+            type: Sequelize.ARRAY(Sequelize.STRING),
+            defaultValue: []
         },
         notes: {
-            type: Sequelize.TEXT
-        },
-        isAdmin: {
-            type: Sequelize.BOOLEAN,
-            defaultValue: false,
+            type: Sequelize.TEXT,
+            defaultValue: ''
         }
     }, {
         instanceMethods: {
@@ -60,7 +46,7 @@ module.exports = function (db) {
                 return crypto.randomBytes(16).toString('base64');
             },
             encryptPassword: function (plainText, salt) {
-                var hash = crypto.createHash('sha1');
+                const hash = crypto.createHash('sha1');
                 hash.update(plainText);
                 hash.update(salt);
                 return hash.digest('hex');

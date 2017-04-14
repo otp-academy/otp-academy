@@ -1,5 +1,5 @@
-import * as ConstsAuth from 'Constants/auth';
-import * as ConstsUser from 'Constants/user';
+import * as ConstsAuth from 'constants/auth';
+import * as ConstsUser from 'constants/user';
 
 
 const initialState = {};

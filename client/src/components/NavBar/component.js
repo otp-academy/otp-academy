@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 export default class NavBar extends Component {
   render() {
+    const { username, requestLogout } = this.props;
     return (
       <div>
         <div>
@@ -19,13 +20,24 @@ export default class NavBar extends Component {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav pullRight>
+                { username && <NavItem>Hello { username }</NavItem> }
+
                 <IndexLinkContainer to={{ pathname: '/' }}>
                   <NavItem eventKey={1}>Home</NavItem>
                 </IndexLinkContainer>
 
-                <LinkContainer to={{ pathname: '/auth' }}>
-                  <NavItem eventKey={2}>Login/Sign Up</NavItem>
-                </LinkContainer>
+                {
+                  username 
+                  ? (
+                      <NavItem onClick={requestLogout} eventKey={2}>Logout</NavItem>
+                    )
+                  : (
+                      <LinkContainer to={{ pathname: '/auth' }}>
+                        <NavItem eventKey={2}>Login/Sign Up</NavItem>
+                      </LinkContainer>
+                    )
+                }
+
               </Nav>
             </Navbar.Collapse>
           </Navbar>
