@@ -7,6 +7,7 @@ const secrets = require('../secrets');
 const env = process.env.NODE_ENV;
 
 const app = express();
+const db = require('./db');
 const port = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
@@ -36,10 +37,15 @@ app.get('/*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  err.message = err.message;
-  console.log('asdfdsfdsaf',err.message)
-  console.log(err);
-  res.status(err.status).json(err);
+  console.error(err);
+  console.error(err.stack);
+
+  res
+  .status(err.status || 500)
+  .json({
+    errorStatus: err.status || 500,
+    message: err.message || 'Internal Server Error'
+  });
 });
 
 app.listen(port, () => {

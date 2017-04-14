@@ -21,14 +21,16 @@ module.exports = function (db) {
             type: Sequelize.STRING
         },
         ign: {
-        	type: Sequelize.STRING
+        	type: Sequelize.STRING,
+            defaultValue: ''
         },
         champions: {
             type: Sequelize.ARRAY(Sequelize.STRING),
             defaultValue: []
         },
         notes: {
-            type: Sequelize.TEXT
+            type: Sequelize.TEXT,
+            defaultValue: ''
         }
     }, {
         instanceMethods: {

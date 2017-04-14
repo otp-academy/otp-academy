@@ -2,8 +2,9 @@ import { takeLatest } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 
 import * as Api from '../api/auth';
-import * as Actions from 'Actions/auth';
-import * as Consts from '../constants/auth';
+import * as Actions from 'actions/auth';
+import * as Consts from 'constants/auth';
+import { locationChange } from 'actions/router';
 
 function* requestLogin(action) {
   try {
@@ -29,6 +30,7 @@ function* requestSession(action) {
     yield put(Actions.sessionSuccess(result));
   } catch (error) {
     yield put(Actions.sessionFailed(error));
+    yield put(locationChange('/auth'));
   }
 }
 

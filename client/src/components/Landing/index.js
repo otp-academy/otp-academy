@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestChampList } from 'Actions/champ';
+import { requestChampList } from 'actions/champ';
 
 const mapStateToProps = (state) => {
   return {
