@@ -100,7 +100,7 @@ router.get('/session', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/logout', (req, res, next) {
+router.get('/logout', (req, res, next) => {
   req.session.destroy();
   res.json({
     message: 'Logged out successfully'

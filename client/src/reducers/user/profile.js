@@ -9,11 +9,10 @@ export default (state = initialState, action) => {
     case Consts.SESSION_SUCCESS:
       return {
         ...state,
-        username: action.result.username
+        username: action.result.username,
+        ign: action.result.ign
       };
-    case Consts.LOGIN_FAILED:
-    case Consts.SIGN_UP_FAILED:
-    case Consts.SESSION_FAILED:
+    case Consts.LOGOUT_SUCCESS:
       return {};
     default:
       return state;

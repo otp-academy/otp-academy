@@ -34,11 +34,13 @@ function* requestSession(action) {
   }
 }
 
-function *requestLogout(action) {
+function* requestLogout(action) {
   try {
-    yield call(Api.requestLogout);
+    const result = yield call(Api.requestLogout);
+    yield put(Actions.logoutSuccess(result));
+    yield put(locationChange('/auth'));
   } catch (error) {
-    
+    yield put(Actions.logoutFailed(result));
   }
 }
 
@@ -46,6 +48,7 @@ export default function* watchAuth() {
   yield [
     takeLatest(Consts.LOGIN_REQUEST, requestLogin),
     takeLatest(Consts.SIGN_UP_REQUEST, requestSignUp),
-    takeLatest(Consts.SESSION_REQUEST, requestSession)
+    takeLatest(Consts.SESSION_REQUEST, requestSession),
+    takeLatest(Consts.LOGOUT_REQUEST, requestLogout)
   ];
 }
