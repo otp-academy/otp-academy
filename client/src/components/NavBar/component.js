@@ -4,6 +4,10 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap/lib';
 import { Link } from 'react-router';
 
 export default class NavBar extends Component {
+  componentDidMount() {
+    this.props.requestSession();
+  }
+  
   render() {
     const { username, requestLogout } = this.props;
     return (

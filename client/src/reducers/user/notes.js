@@ -11,9 +11,7 @@ export default (state = initialState, action) => {
         ...state,
         ...getNotes(action.result.notes)
       };
-    case Consts.LOGIN_FAILED:
-    case Consts.SIGN_UP_FAILED:
-    case Consts.SESSION_FAILED:
+    case Consts.LOGOUT_SUCCESS:
       return {};
     default:
       return state;

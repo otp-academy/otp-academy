@@ -1,7 +1,9 @@
 // make sure to encrypt this in future to prevent man in the middle attacks
+import { baseFetchOptions } from './utils';
 
 export const requestAddChamp = (userId, champion) => {
   return fetch('/users/'+userId+'/champions', {
+    ...baseFetchOptions,
   	headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -14,6 +16,7 @@ export const requestAddChamp = (userId, champion) => {
 
 export const requestDeleteChamp = (userId, champion) => {
   return fetch('/users/'+userId+'/champions', {
+    ...baseFetchOptions,
   	headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

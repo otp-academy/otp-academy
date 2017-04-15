@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestSession: dispatch(requestSession()),
-    requestLogout: dispatch(requestLogout())
+    requestSession: () => (dispatch(requestSession())),
+    requestLogout: () => (dispatch(requestLogout()))
   };
 }
 
