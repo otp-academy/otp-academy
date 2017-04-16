@@ -13,7 +13,7 @@ router.post('/login', (req, res, next) => {
   })
   .then(user => {
     if (!user) {
-      const error = new Error('No such user found!');
+      const error = new Error('Invalid username.');
       error.status = 400;
       throw error;
     }
@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
         id: user.id,
         username: user.username
       };
-      console.log('asdfdsfasf', req.session);
+      
       res.json({
         username: user.username,
         ign: user.ign,
@@ -33,7 +33,7 @@ router.post('/login', (req, res, next) => {
         notes: user.notes
       });
     } else {
-      const error = new Error('Incorrect Password');
+      const error = new Error('Incorrect Password.');
       error.status = 400;
       throw error;
     }
@@ -43,7 +43,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/signup', (req, res, next) => {
   if (req.body.password !== req.body.reenterPassword) {
-    const error = new Error('You reentered your password incorrectly');
+    const error = new Error('You reentered your password incorrectly.');
     error.status = 400;
     next(error);
     return;
@@ -56,7 +56,7 @@ router.post('/signup', (req, res, next) => {
   })
   .then(function (user) {
     if (user) {
-      const error = new Error('Username already taken');
+      const error = new Error('Username already taken.');
       error.status = 400;
       throw error;
     }
@@ -82,7 +82,7 @@ router.post('/signup', (req, res, next) => {
 
 router.get('/session', (req, res, next) => {
   if (!req.session.user || !req.session.user.id) {
-    const error = new Error('You are not logged in');
+    const error = new Error('You are not logged in.');
     error.status = 400;
     next(error);
     return;
@@ -103,7 +103,7 @@ router.get('/session', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
   req.session.destroy();
   res.json({
-    message: 'Logged out successfully'
+    message: 'Logged out successfully.'
   });
 });
 

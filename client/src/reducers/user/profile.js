@@ -12,6 +12,7 @@ export default (state = initialState, action) => {
         username: action.result.username,
         ign: action.result.ign
       };
+    case Consts.SESSION_FAILED:
     case Consts.LOGOUT_SUCCESS:
       return {};
     default:

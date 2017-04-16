@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap/lib';
+import Spinner from 'lib/Spinner';
 
 export default class SignUpForm extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class SignUpForm extends Component {
 
   render() {
     const { username, password, reenterPassword, reenterDirty } = this.state;
+    const { isFetching, error } = this.props;
 
     return (
       <div className="signupPanel">
@@ -95,10 +97,13 @@ export default class SignUpForm extends Component {
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup validationState="error" className="auth-form-error">
               <Button type="submit" disabled={ !this.checkFormIsValid() } bsStyle="success">
-                Sign Up
+                { isFetching ? <Spinner /> : 'Sign Up' }
               </Button>
+              {
+                (!isFetching && error) && <ControlLabel className="auth-form-error-message">{ error.message }</ControlLabel>
+              }
             </FormGroup>
 
           </Form>
