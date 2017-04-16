@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga';
+import { takeLatest, delay } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 
 import * as Api from '../api/auth';
@@ -10,7 +10,9 @@ function* requestLogin(action) {
   try {
     const result = yield call(Api.requestLogin, action.loginInfo);
     yield put(Actions.loginSuccess(result));
+    yield put(locationChange('/'));
   } catch (error) {
+    yield call(delay, 2500);
     yield put(Actions.loginFailed(error));
   }
 }
@@ -19,7 +21,9 @@ function* requestSignUp(action) {
   try {
     const result = yield call(Api.requestSignUp, action.signUpInfo);
     yield put(Actions.signUpSuccess(result));
+    yield put(locationChange('/'));
   } catch (error) {
+    yield call(delay, 2500);
     yield put(Actions.signUpFailed(error));
   }
 }

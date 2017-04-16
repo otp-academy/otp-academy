@@ -19,7 +19,8 @@ export default (state = initialState, action) => {
       };
     case ConstsUser.DELETECHAMP_SUCCESS:
       return action.result;
-    case ConstsUser.LOGOUT_SUCCESS:
+    case ConstsAuth.SESSION_FAILED:
+    case ConstsAuth.LOGOUT_SUCCESS:
       return {};
     default:
       return state;
