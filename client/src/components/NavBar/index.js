@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestLogout } from 'actions/auth';
+import { requestLogout, requestSession } from 'actions/auth';
 
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestLogout: () => (dispatch(requestLogout()))
+    requestLogout: () => (dispatch(requestLogout())),
+    requestSession: () => (dispatch(requestSession()))
   };
 }
 

@@ -13,23 +13,14 @@ import Landing from './components/Landing';
 import ChampionsList from './components/ChampionsList';
 import NoMatch from './components/NoMatch';
 
-import { requestSession } from 'actions/auth';
-
 const history = syncHistoryWithStore(browserHistory, store);
-
-function requireAuth(nextState, replace, callback) {
-  const state = store.getState();
-  if (state.routing.locationBeforeTransitions.pathname !== '/auth' && !state.user.profile.username) {
-    store.dispatch(requestSession());
-  }
-}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={NavBar}>
-        <IndexRoute onEnter={requireAuth} component={Landing}/>
-        <Route path="/auth" component={AuthPage}/>
+        <IndexRoute component={AuthPage} />
+        <Route path="/landing" component={Landing}/>
       </Route>
 
       <Route path="/champions" component={ChampionsList}/>

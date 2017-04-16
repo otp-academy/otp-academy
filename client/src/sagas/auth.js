@@ -10,7 +10,7 @@ function* requestLogin(action) {
   try {
     const result = yield call(Api.requestLogin, action.loginInfo);
     yield put(Actions.loginSuccess(result));
-    yield put(locationChange('/'));
+    yield put(locationChange('/landing'));
   } catch (error) {
     yield call(delay, 2500);
     yield put(Actions.loginFailed(error));
@@ -21,7 +21,7 @@ function* requestSignUp(action) {
   try {
     const result = yield call(Api.requestSignUp, action.signUpInfo);
     yield put(Actions.signUpSuccess(result));
-    yield put(locationChange('/'));
+    yield put(locationChange('/landing'));
   } catch (error) {
     yield call(delay, 2500);
     yield put(Actions.signUpFailed(error));
@@ -34,7 +34,7 @@ function* requestSession(action) {
     yield put(Actions.sessionSuccess(result));
   } catch (error) {
     yield put(Actions.sessionFailed(error));
-    yield put(locationChange('/auth'));
+    yield put(locationChange('/'));
   }
 }
 
@@ -42,7 +42,7 @@ function* requestLogout(action) {
   try {
     const result = yield call(Api.requestLogout);
     yield put(Actions.logoutSuccess(result));
-    yield put(locationChange('/auth'));
+    yield put(locationChange('/'));
   } catch (error) {
     yield put(Actions.logoutFailed(result));
   }

@@ -4,6 +4,10 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap/lib';
 import { Link } from 'react-router';
 
 export default class NavBar extends Component {
+  componentDidMount() {
+    this.props.requestSession();
+  }
+
   render() {
     const { username, requestLogout } = this.props;
     return (
@@ -12,7 +16,7 @@ export default class NavBar extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to={{ pathname: '/' }}>
+                <Link to={{ pathname: '/landing' }}>
                   OTPAcademy
                 </Link>
               </Navbar.Brand>
@@ -22,7 +26,7 @@ export default class NavBar extends Component {
               <Nav pullRight>
                 { username && <NavItem>Hello { username }</NavItem> }
 
-                <IndexLinkContainer to={{ pathname: '/' }}>
+                <IndexLinkContainer to={{ pathname: '/landing' }}>
                   <NavItem eventKey={1}>Home</NavItem>
                 </IndexLinkContainer>
 
@@ -32,7 +36,7 @@ export default class NavBar extends Component {
                       <NavItem onClick={requestLogout} eventKey={2}>Logout</NavItem>
                     )
                   : (
-                      <LinkContainer to={{ pathname: '/auth' }}>
+                      <LinkContainer to={{ pathname: '/' }}>
                         <NavItem eventKey={2}>Login/Sign Up</NavItem>
                       </LinkContainer>
                     )
