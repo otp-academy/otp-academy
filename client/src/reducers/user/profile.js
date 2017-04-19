@@ -1,4 +1,4 @@
-import * as Consts from 'Constants/auth';
+import * as Consts from 'constants/auth';
 
 const initialState = {};
 
@@ -9,12 +9,11 @@ export default (state = initialState, action) => {
     case Consts.SESSION_SUCCESS:
       return {
         ...state,
-        id: action.result.id
-        // ...action.result.profile
+        username: action.result.username,
+        ign: action.result.ign
       };
-    case Consts.LOGIN_FAILED:
-    case Consts.SIGN_UP_FAILED:
     case Consts.SESSION_FAILED:
+    case Consts.LOGOUT_SUCCESS:
       return {};
     default:
       return state;

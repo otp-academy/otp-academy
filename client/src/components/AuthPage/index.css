@@ -8,3 +8,11 @@
 .loginPanel div.panel{
 	height: 342px;
 }
+
+.auth-form-error .auth-form-error-message {
+	margin-left: 15px;
+}
+
+.auth-form-error .fa-spinner{
+	font-size: 1.7em;
+}

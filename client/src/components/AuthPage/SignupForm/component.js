@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap/lib';
+import Spinner from 'lib/Spinner';
 
 export default class SignUpForm extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class SignUpForm extends Component {
     this.state = {
       username: '',
       password: '',
-      reenterPass: '',
+      reenterPassword: '',
       reenterDirty: false
 
     };
@@ -16,7 +17,7 @@ export default class SignUpForm extends Component {
   }
 
   handleChange(e) {
-    if (e.target.name === 'reenterPass' && !this.state.reenterDirty) {
+    if (e.target.name === 'reenterPassword' && !this.state.reenterDirty) {
       this.setState({
         reenterDirty: true
       });
@@ -28,7 +29,7 @@ export default class SignUpForm extends Component {
   }
 
   submitSignUpForm(e) {
-    const { username, password, reenterPass } = this.state;
+    const { username, password, reenterPassword } = this.state;
     const { requestSignUp } = this.props;
 
     e.preventDefault();
@@ -36,15 +37,15 @@ export default class SignUpForm extends Component {
     requestSignUp({
       username,
       password,
-      reenterPass
+      reenterPassword
     });
   }
 
   checkValidationState() {
-    const { username, password, reenterPass, reenterDirty } = this.state;
+    const { username, password, reenterPassword, reenterDirty } = this.state;
 
     if (reenterDirty) {
-      if (password === reenterPass) {
+      if (password === reenterPassword) {
         return 'success';
       }
       return 'error';
@@ -53,12 +54,13 @@ export default class SignUpForm extends Component {
   }
 
   checkFormIsValid() {
-    const { username, password, reenterPass, reenterDirty } = this.state;
-    return username && password === reenterPass && reenterDirty;
+    const { username, password, reenterPassword, reenterDirty } = this.state;
+    return username && password === reenterPassword && reenterDirty;
   }
 
   render() {
-    const { username, password, reenterPass, reenterDirty } = this.state;
+    const { username, password, reenterPassword, reenterDirty } = this.state;
+    const { isFetching, error } = this.props;
 
     return (
       <div className="signupPanel">
@@ -88,17 +90,20 @@ export default class SignUpForm extends Component {
             <FormGroup validationState={ this.checkValidationState() }>
               <ControlLabel>Re-enter Password</ControlLabel>
               <FormControl
-                name="reenterPass"
+                name="reenterPassword"
                 type="password"
-                value={ reenterPass }
+                value={ reenterPassword }
                 onChange={this.handleChange}
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup validationState="error" className="auth-form-error">
               <Button type="submit" disabled={ !this.checkFormIsValid() } bsStyle="success">
-                Sign Up
+                { isFetching ? <Spinner /> : 'Sign Up' }
               </Button>
+              {
+                (!isFetching && error) && <ControlLabel className="auth-form-error-message">{ error.message }</ControlLabel>
+              }
             </FormGroup>
 
           </Form>

@@ -11,3 +11,7 @@ export const signUpFailed = error => ({type: Consts.SIGN_UP_FAILED, error});
 export const requestSession = () => ({type: Consts.SESSION_REQUEST });
 export const sessionSuccess = result => ({type: Consts.SESSION_SUCCESS, result});
 export const sessionFailed = error => ({type: Consts.SESSION_FAILED, error});
+
+export const requestLogout = () => ({ type: Consts.LOGOUT_REQUEST });
+export const logoutSuccess = () => ({ type: Consts.LOGOUT_SUCCESS} );
+export const logoutFailed = error => ({ type: Consts.LOGOUT_FAILED, error });

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestAddChamp, requestDeleteChamp } from 'Actions/user';
+import { requestAddChamp, requestDeleteChamp } from 'actions/user';
 
 const mapStateToProps = (state) => {
   return {

@@ -1,6 +1,13 @@
 import { connect } from 'react-redux';
 import component from './component';
-import { requestLogin } from 'Actions/auth';
+import { requestLogin } from 'actions/auth';
+
+function mapStateToProps(state) {
+  return {
+    isFetching: state.auth.login.isFetching,
+    error: state.auth.login.error
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -8,4 +15,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(component);
+export default connect(mapStateToProps, mapDispatchToProps)(component);

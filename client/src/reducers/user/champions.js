@@ -1,6 +1,5 @@
-import * as ConstsAuth from 'Constants/auth';
-import * as ConstsUser from 'Constants/user';
-
+import * as ConstsAuth from 'constants/auth';
+import * as ConstsUser from 'constants/user';
 
 const initialState = {};
 
@@ -20,11 +19,8 @@ export default (state = initialState, action) => {
       };
     case ConstsUser.DELETECHAMP_SUCCESS:
       return action.result;
-    case ConstsAuth.LOGIN_FAILED:
-    case ConstsAuth.SIGN_UP_FAILED:
     case ConstsAuth.SESSION_FAILED:
-    case ConstsUser.ADDCHAMP_FAILED:
-    case ConstsUser.DELETECHAMP_FAILED:
+    case ConstsAuth.LOGOUT_SUCCESS:
       return {};
     default:
       return state;

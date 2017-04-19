@@ -19,8 +19,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={NavBar}>
-        <IndexRoute component={Landing}/>
-        <Route path="/auth" component={AuthPage}/>
+        <IndexRoute component={AuthPage} />
+        <Route path="/landing" component={Landing}/>
       </Route>
 
       <Route path="/champions" component={ChampionsList}/>

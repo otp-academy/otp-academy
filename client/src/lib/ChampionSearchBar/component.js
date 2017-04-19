@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Typeahead from 'Lib/Typeahead';
+import Typeahead from 'lib/Typeahead';
 
 export default class ChampionSearchBar extends Component {
   constructor(props) {

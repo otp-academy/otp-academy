@@ -12,23 +12,19 @@ fsg scaffolding, keep in mind that fsg always uses the same database
 name in the environment files.
 */
 
-var chalk = require('chalk');
-var db = require('./server/db');
-var User = db.model('user');
-var Promise = require('sequelize').Promise;
-var chance = require('chance')(123);
+const chalk = require('chalk');
+const db = require('./server/db');
+const User = db.model('user');
+const Promise = require('sequelize').Promise;
+const chance = require('chance')(123);
 
-var numUsers = 15;
+const numUsers = 15;
 
-var seedUsers = function () {
-    var users = [
+const seedUsers = function () {
+    const users = [
         {
-            first_name: 'Jane',
-            last_name: 'FSA',
-            email: 'testing@fsa.com',
+            username: 'testing',
             password: 'password',
-            age: 5,
-            gender: 'Female',
             champions: ['Ahri', 'Tryndamere', 'Kennen'],
             ign: chance.word(),
             notes: JSON.stringify({
@@ -39,16 +35,11 @@ var seedUsers = function () {
                 'Tryndamere': {
                     'Jayce': 'Play passive until the game ends'
                 }
-            }),
-            isAdmin: false
+            })
         },
         {
-            first_name: 'Barack',
-            last_name: 'Obama',
-            email: 'obama@gmail.com',
+            username: 'obama',
             password: 'potus',
-            age: 54,
-            gender: 'Male',
             champions: ['Aatrox', 'Heimerdinger'],
             ign: chance.word(),
             notes: JSON.stringify({
@@ -58,47 +49,35 @@ var seedUsers = function () {
                 'Heimerdinger': {
                     'Shaco': 'make turrets to fight shacos boxes'
                 }
-            }),
-            isAdmin: true
+            })
         },
         {
-            first_name: 'Mr.',
-            last_name: 'Admin',
-            email: 'm@m.com',
+            username: 'mm',
             password: 'm',
-            age: 54,
-            gender: 'Male',
             champions: ["Kha'zix", 'awhdoiawhd', 'Tryndamere'],
             ign: chance.word(),
             notes: JSON.stringify({
                 'Tryndamere': {
                     'Darius': 'Pull the wave and ask for ganks. Outscale him late game.'
                 }
-            }),
-            isAdmin: true
+            })
         },
     ];
 
     function generateRandomUser() {
-        var name = chance.name().split(' ');
+        const name = chance.word() + chance.word();
         return {
-            first_name: name[0],
-            last_name: name[1],
-            email: name.join('').toLowerCase()+'@otpacademy.com',
+            username: name.toLowerCase(),
             password: 'password',
-            ign: chance.word(),
-            age: chance.integer({min: 18, max: 70}),
-            gender: chance.pickone(['Male', 'Female']),
-            isAdmin: chance.bool({likelihood: 30})
-        }
-
+            ign: chance.word()
+        };
     }
 
     while (users.length <= numUsers) {
         users.push(generateRandomUser());
     }
 
-    var creatingUsers = users.map(userObj => {
+    const creatingUsers = users.map(userObj => {
         return User.create(userObj);
     });
 
