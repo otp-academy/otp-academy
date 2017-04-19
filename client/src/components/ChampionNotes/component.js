@@ -16,10 +16,11 @@ export default class ChampionNotes extends Component {
 
 	showMatchupNotes(enemyChamp) {
 		const {champ, notes} = this.props;
-		console.log(champ, enemyChamp, notes[champ.key][enemyChamp.key])
+		var currentNote = (notes && notes[champ.key] && notes[champ.key][enemyChamp.key]) ? 
+											notes[champ.key][enemyChamp.key] : "No notes for this matchup"
 		this.setState({
 			enemyChamp: enemyChamp,
-			currentNote: notes[champ.key][enemyChamp.key]
+			currentNote: currentNote
 		});
 	}
 
@@ -50,6 +51,7 @@ export default class ChampionNotes extends Component {
 	        </div>
 		    }>
 	      	{ currentNote }
+	      	
 	      </Panel>
 	    </div>
 	  );

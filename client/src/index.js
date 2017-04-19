@@ -15,7 +15,6 @@ import NoMatch from './components/NoMatch';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
