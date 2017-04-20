@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
+import { Panel, Button } from 'react-bootstrap/lib';
 import ChampionBox from '../ChampionBox';
-import ChampionSearchBar from '../../lib/ChampionSearchBar'
+import ChampionSearchBar from '../../lib/ChampionSearchBar';
 
 export default class ChampionNotes extends Component {
 	constructor(props) {
@@ -9,9 +9,12 @@ export default class ChampionNotes extends Component {
 		this.state = {
 			currentNote: null,
 			currentChamp: this.props.champ,
-			enemyChamp: null
+			enemyChamp: null,
+			editing: false
 		};
 		this.showMatchupNotes = this.showMatchupNotes.bind(this);
+		this.makeEditable = this.makeEditable.bind(this);
+		this.saveChanges = this.saveChanges.bind(this);
 	}
 
 	showMatchupNotes(enemyChamp) {
@@ -29,14 +32,29 @@ export default class ChampionNotes extends Component {
 			this.setState({
 				currentChamp: this.props.champ,
 				currentNote: null,
-				enemyChamp: null
+				enemyChamp: null,
+				editing: false
 			});
 		}
 	}
 
+	makeEditable() {
+		this.setState({
+			editing: true
+		})
+	}
+
+	saveChanges() {
+		var newNote = this.refs.newNote.value;
+		this.setState({
+			editing: false,
+			currentNote: newNote
+		})
+	}
+	
 	render() {
   	const {champList, champ} = this.props;
-  	const {enemyChamp, currentNote} = this.state;
+  	const {enemyChamp, currentNote, editing} = this.state;
 	  return (
 	    <div>
 	      <Panel header={
@@ -50,8 +68,21 @@ export default class ChampionNotes extends Component {
 	        	<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
 	        </div>
 		    }>
-	      	{ currentNote }
-	      	
+      		{!editing &&
+      			<div className="content">
+      				<text>{currentNote}</text>
+      				<Button bsStyle="info" onClick={this.makeEditable}>Edit</Button>
+      			</div>
+      		}
+      		{editing &&
+      			<div className="content">
+		      		<textarea 
+		      			ref="newNote"
+		      			defaultValue={currentNote}
+		      		></textarea>
+	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
+      			</div>
+      		}
 	      </Panel>
 	    </div>
 	  );
