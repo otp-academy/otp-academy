@@ -46,12 +46,20 @@ export default class ChampionNotes extends Component {
 
 	saveChanges() {
 		var newNote = this.refs.newNote.value;
+		const {currentChamp, enemyChamp} = this.state;
+		var {notes} = this.props;
 		this.setState({
 			editing: false,
 			currentNote: newNote
 		})
+		console.log(notes, currentChamp, enemyChamp)
+		if (currentChamp && enemyChamp) {
+			if (!notes[currentChamp.key]) notes[currentChamp.key] = {};
+			notes[currentChamp.key][enemyChamp.key] = newNote;
+			this.props.requestUpdateNotes(this.props.userId, notes);
+		}
 	}
-	
+
 	render() {
   	const {champList, champ} = this.props;
   	const {enemyChamp, currentNote, editing} = this.state;

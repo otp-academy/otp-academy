@@ -23,9 +23,19 @@ function* requestDeleteChamp(action) {
   }
 }
 
+function* requestUpdateNotes(action) {
+  try {
+    const result = yield call(Api.requestUpdateNotes, action.userId, action.notes);
+    yield put(Actions.updateNotesSuccess(result));
+  } catch (error) {
+    yield put(Actions.updateNotesFailed(error));
+  }
+}
+
 export default function* watchUser() {
   yield [
     takeLatest(Consts.ADDCHAMP_REQUEST, requestAddChamp),
-    takeLatest(Consts.DELETECHAMP_REQUEST, requestDeleteChamp)
+    takeLatest(Consts.DELETECHAMP_REQUEST, requestDeleteChamp),
+    takeLatest(Consts.UPDATENOTES_REQUEST, requestUpdateNotes)
   ];
 }

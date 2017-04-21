@@ -27,6 +27,7 @@ router.post('/login', (req, res, next) => {
       };
       
       res.json({
+        id: user.id,
         username: user.username,
         ign: user.ign,
         champions: user.champions,
@@ -91,6 +92,7 @@ router.get('/session', (req, res, next) => {
   User.findById(req.session.user.id)
   .then(function (user) {
     res.json({
+      id: user.id,
       username: user.username,
       ign: user.ign,
       champions: user.champions,
