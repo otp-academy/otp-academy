@@ -21,7 +21,7 @@ export default class ChampionNotes extends Component {
 	showMatchupNotes(enemyChamp) {
 		const {champ, notes} = this.props;
 		var currentNote = (notes && notes[champ.key] && notes[champ.key][enemyChamp.key]) ? 
-											notes[champ.key][enemyChamp.key] : "No notes for this matchup"
+											notes[champ.key][enemyChamp.key] : "";
 		this.setState({
 			enemyChamp: enemyChamp,
 			currentNote: currentNote
@@ -55,7 +55,8 @@ export default class ChampionNotes extends Component {
 		})
 		if (currentChamp && enemyChamp) {
 			if (!notes[currentChamp.key]) notes[currentChamp.key] = {};
-			if (notes[currentChamp.key][enemyChamp.key] === newNote) return;
+			if (notes[currentChamp.key][enemyChamp.key] === newNote || 
+					newNote === "") return;
 			notes[currentChamp.key][enemyChamp.key] = newNote;
 			this.props.requestUpdateNotes(this.props.userId, notes);
 		}
@@ -77,13 +78,13 @@ export default class ChampionNotes extends Component {
 	        	<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
 	        </div>
 		    }>
-      		{!editing &&
+      		{!editing && enemyChamp && 
       			<div className="content">
-      				<text>{currentNote}</text>
+      				<text>{currentNote ? currentNote : "No notes for this matchup"}</text>
       				<Button bsStyle="info" onClick={this.makeEditable}>Edit</Button>
       			</div>
       		}
-      		{editing &&
+      		{editing && enemyChamp &&
       			<div className="content">
 		      		<Textarea 
 		      			ref="newNote"
