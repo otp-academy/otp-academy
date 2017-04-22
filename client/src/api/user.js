@@ -26,3 +26,16 @@ export const requestDeleteChamp = (userId, champion) => {
   })
   .then(res => res.json())
 }
+
+export const requestUpdateNotes = (userId, newNotes) => {
+  return fetch('users/'+userId+'/notes', {
+    ...baseFetchOptions,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(newNotes)
+  })
+  .then(res => res.json());
+}

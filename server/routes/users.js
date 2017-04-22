@@ -31,6 +31,10 @@ router.get('/:userId/champions', function (req, res) {
     res.json(req.requestedUser.champions);
 });
 
+router.get('/:userId/notes', function (req, res) {
+    res.json(req.requestedUser.notes);
+});
+
 router.get('/:userId', function (req, res) {
     res.json(req.requestedUser);
 });
@@ -45,6 +49,16 @@ router.put('/:userId/champions', function (req, res, next) {
     })
     .then(function(user) {
         res.json(user.champions);
+    });
+});
+
+router.put('/:userId/notes', function (req, res, next) {
+    var updatedNotes = JSON.stringify(req.body);
+    req.requestedUser.updateAttributes({
+        notes: updatedNotes
+    })
+    .then(function(user) {
+        res.json(JSON.parse(user.notes));
     });
 });
 
