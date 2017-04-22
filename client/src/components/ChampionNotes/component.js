@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button } from 'react-bootstrap/lib';
+import { Panel, Button, Col, Image } from 'react-bootstrap/lib';
 import ChampionBox from '../ChampionBox';
 import ChampionSearchBar from '../../lib/ChampionSearchBar';
 import Textarea from 'react-textarea-autosize';
@@ -69,13 +69,15 @@ export default class ChampionNotes extends Component {
 	    <div>
 	      <Panel header={
 	      	<div>
-	        	<ChampionBox champ={ champ } imageOnly={ true } />
-	        	vs
+        		<ChampionBox className="champPic" champ={ champ } imageOnly={ true } />
+        		<img id="versus" src={require('../../lib/StaticImg/versus.png')} alt="VS" />
 	        	{
 	        		enemyChamp &&
-	        		<ChampionBox champ={ enemyChamp } imageOnly={ true } />
+	        		<ChampionBox className="champPic" champ={ enemyChamp } imageOnly={ true } />
 	        	}
-	        	<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
+	        	<span>
+	        		<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
+	        	</span>
 	        </div>
 		    }>
       		{!editing && enemyChamp && 
