@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Panel, Button } from 'react-bootstrap/lib';
 import ChampionBox from '../ChampionBox';
 import ChampionSearchBar from '../../lib/ChampionSearchBar';
+import Textarea from 'react-textarea-autosize';
 
 export default class ChampionNotes extends Component {
 	constructor(props) {
@@ -52,9 +53,9 @@ export default class ChampionNotes extends Component {
 			editing: false,
 			currentNote: newNote
 		})
-		console.log(notes, currentChamp, enemyChamp)
 		if (currentChamp && enemyChamp) {
 			if (!notes[currentChamp.key]) notes[currentChamp.key] = {};
+			if (notes[currentChamp.key][enemyChamp.key] === newNote) return;
 			notes[currentChamp.key][enemyChamp.key] = newNote;
 			this.props.requestUpdateNotes(this.props.userId, notes);
 		}
@@ -84,10 +85,10 @@ export default class ChampionNotes extends Component {
       		}
       		{editing &&
       			<div className="content">
-		      		<textarea 
+		      		<Textarea 
 		      			ref="newNote"
 		      			defaultValue={currentNote}
-		      		></textarea>
+		      		></Textarea>
 	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
       			</div>
       		}
