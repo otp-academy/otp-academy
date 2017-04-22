@@ -69,14 +69,14 @@ export default class ChampionNotes extends Component {
 	    <div>
 	      <Panel header={
 	      	<div>
-        		<ChampionBox className="champPic" champ={ champ } imageOnly={ true } />
+        		<ChampionBox champ={ champ } imageOnly={ true } />
         		<img id="versus" src={require('../../lib/StaticImg/versus.png')} alt="VS" />
 	        	{
 	        		enemyChamp &&
-	        		<ChampionBox className="champPic" champ={ enemyChamp } imageOnly={ true } />
+	        		<ChampionBox champ={ enemyChamp } imageOnly={ true } />
 	        	}
-	        	<span>
-	        		<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
+	        	<span id="enemySearch">
+	        		<ChampionSearchBar style={{marginLeft: '10px'}} showMatchupNotes={ this.showMatchupNotes } />
 	        	</span>
 	        </div>
 		    }>
