@@ -116,7 +116,7 @@ export default class ChampionNotes extends Component {
       			<div className="content">
 		      		<Textarea 
 		      			ref="newNote"
-		      			defaultValue={currentNote}
+		      			defaultValue={currentNote || notesFromArray}
 		      		></Textarea>
 	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
       			</div>
