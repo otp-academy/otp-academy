@@ -8,10 +8,12 @@ export default class Landing extends Component {
     super(props);
     this.state = {
       numNotes: 0,
-      currentChamps: []
+      currentChamps: [],
+      enemyChamps: []
     };
     this.createNotesPanel = this.createNotesPanel.bind(this);
     this.deleteNotesPanel = this.deleteNotesPanel.bind(this);
+    this.addEnemyChamp = this.addEnemyChamp.bind(this);
   }
   componentDidMount() {
     if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
@@ -19,27 +21,38 @@ export default class Landing extends Component {
   
   createNotesPanel(champ) {
     // array of champs that you currently want notes panels for
-    let { currentChamps, numNotes } = this.state;
+    let { currentChamps, numNotes, enemyChamps } = this.state;
     currentChamps.push(champ);
+    enemyChamps.push(null);
     numNotes++;
     this.setState({numNotes, currentChamps});
   }
 
+  addEnemyChamp(enemyChamp, i) {
+    let { enemyChamps } = this.state;
+    enemyChamps[i] = enemyChamp;
+    this.setState({enemyChamps});
+  }
+
   deleteNotesPanel(i) {
-    let { currentChamps, numNotes } = this.state;
+    let { currentChamps, enemyChamps, numNotes } = this.state;
     numNotes--;
     currentChamps.splice(i, 1);
-    this.setState({numNotes, currentChamps});
+    enemyChamps.splice(i, 1);
+    this.setState({numNotes, currentChamps, enemyChamps});
   }
 
   render() {
     const notesPanels = [];
-    const { currentChamps, numNotes } = this.state;
+    const { currentChamps, enemyChamps, numNotes } = this.state;
     for (var i = 0; i < numNotes; i++) {
       notesPanels.push(<ChampionNotes 
+                          key={ currentChamps[i].key + i }
                           number={ i } 
                           champ={ currentChamps[i] }
+                          enemyChamp={ enemyChamps[i] }
                           deleteNotesPanel = { this.deleteNotesPanel }
+                          addEnemyChamp = { this.addEnemyChamp }
                         />)
     }
     return (

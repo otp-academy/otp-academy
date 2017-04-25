@@ -10,7 +10,7 @@ export default class ChampionNotes extends Component {
 		this.state = {
 			currentNote: null,
 			currentChamp: this.props.champ,
-			enemyChamp: null,
+			enemyChamp: this.props.enemyChamp,
 			editing: false
 		};
 		this.showMatchupNotes = this.showMatchupNotes.bind(this);
@@ -19,7 +19,8 @@ export default class ChampionNotes extends Component {
 	}
 
 	showMatchupNotes(enemyChamp) {
-		const {champ, notes} = this.props;
+		const {champ, notes, addEnemyChamp, number} = this.props;
+		addEnemyChamp(enemyChamp, number);
 		var currentNote = (notes && notes[champ.key] && notes[champ.key][enemyChamp.key]) ? 
 											notes[champ.key][enemyChamp.key] : "";
 		this.setState({
@@ -35,6 +36,11 @@ export default class ChampionNotes extends Component {
 				currentNote: null,
 				enemyChamp: null,
 				editing: false
+			});
+		}
+		if (this.props.enemyChamp && !this.state.enemyChamp) {
+			this.setState({
+				enemyChamp: this.props.enemyChamp
 			});
 		}
 	}
@@ -63,7 +69,7 @@ export default class ChampionNotes extends Component {
 	}
 
 	render() {
-  	const {champList, champ, deleteNotesPanel, i} = this.props;
+  	const {champList, champ, deleteNotesPanel, number} = this.props;
   	const {enemyChamp, currentNote, editing} = this.state;
 	  return (
 	    <div>
@@ -80,7 +86,7 @@ export default class ChampionNotes extends Component {
 	        	</span>
 	        	<button onClick={(e) => {
             	e.stopPropagation();
-            	deleteNotesPanel(i);
+            	deleteNotesPanel(number);
             }}>x</button>
 	        </div>
 		    }>
