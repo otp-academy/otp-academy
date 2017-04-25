@@ -10,25 +10,29 @@ export default class ChampionNotes extends Component {
 		this.state = {
 			currentNote: null,
 			currentChamp: this.props.champ,
-			enemyChamp: null,
+			enemyChamp: this.props.enemyChamp,
 			editing: false
 		};
 		this.showMatchupNotes = this.showMatchupNotes.bind(this);
-		this.makeEditable = this.makeEditable.bind(this);
+		this.toggleEditable = this.toggleEditable.bind(this);
 		this.saveChanges = this.saveChanges.bind(this);
 	}
 
 	showMatchupNotes(enemyChamp) {
-		const {champ, notes} = this.props;
+		const {champ, notes, addEnemyChamp, number, updateNotesArray} = this.props;
+		addEnemyChamp(enemyChamp, number);
 		var currentNote = (notes && notes[champ.key] && notes[champ.key][enemyChamp.key]) ? 
 											notes[champ.key][enemyChamp.key] : "";
 		this.setState({
 			enemyChamp: enemyChamp,
 			currentNote: currentNote
 		});
+
+		updateNotesArray(number, currentNote);
 	}
 
 	componentDidUpdate() {
+		// if the props and state variables don't matchup, update the state variable
 		if (this.props.champ !== this.state.currentChamp) {
 			this.setState({
 				currentChamp: this.props.champ,
@@ -37,11 +41,28 @@ export default class ChampionNotes extends Component {
 				editing: false
 			});
 		}
+		// remember the enemy champ matchup for when there was a deletion of a sibling note above this current note
+		if (this.props.enemyChamp && !this.state.enemyChamp) {
+			this.setState({
+				enemyChamp: this.props.enemyChamp
+			});
+		}
+		// remember the note to be correctly displayed (instead of null) when there was a deletion of a sibling note
+		// above this current note
+		if (!this.state.currentNote && 
+				this.props.notes && this.props.notes[this.props.champ.key] && 
+				this.props.notes[this.props.champ.key][this.props.enemyChamp.key]) {
+			this.setState({
+				currentNote: this.props.notes[this.props.champ.key][this.props.enemyChamp.key]
+			});
+		}
 	}
 
-	makeEditable() {
+	toggleEditable() {
+		let { currentNote, notesFromArray, editing }	= this.state;
 		this.setState({
-			editing: true
+			currentNote: currentNote ? currentNote : notesFromArray,
+			editing: !editing
 		})
 	}
 
@@ -63,8 +84,9 @@ export default class ChampionNotes extends Component {
 	}
 
 	render() {
-  	const {champList, champ} = this.props;
+  	const {champList, champ, deleteNotesPanel, number, notesFromArray} = this.props;
   	const {enemyChamp, currentNote, editing} = this.state;
+
 	  return (
 	    <div>
 	      <Panel header={
@@ -75,24 +97,30 @@ export default class ChampionNotes extends Component {
 	        		enemyChamp &&
 	        		<ChampionBox champ={ enemyChamp } imageOnly={ true } />
 	        	}
-	        	<span id="enemySearch">
-	        		<ChampionSearchBar style={{marginLeft: '10px'}} showMatchupNotes={ this.showMatchupNotes } />
+	        	<span id="enemy-search-wrapper">
+	        		<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
 	        	</span>
+	        	<button onClick={(e) => {
+            	e.stopPropagation();
+            	deleteNotesPanel(number);
+            }}>x</button>
 	        </div>
 		    }>
       		{!editing && enemyChamp && 
       			<div className="content">
-      				<text>{currentNote ? currentNote : "No notes for this matchup"}</text>
-      				<Button bsStyle="info" onClick={this.makeEditable}>Edit</Button>
+      				<text>{currentNote ? currentNote : (notesFromArray ? notesFromArray : "No notes for this matchup")}</text>
+      				<Button bsStyle="info" onClick={this.toggleEditable}>Edit</Button>
       			</div>
       		}
       		{editing && enemyChamp &&
       			<div className="content">
-		      		<Textarea 
+		      		<Textarea
+		      			id="textarea"
 		      			ref="newNote"
-		      			defaultValue={currentNote}
+		      			defaultValue={currentNote || notesFromArray}
 		      		></Textarea>
 	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
+	      			<Button bsStyle="info" className="button-cancel" onClick={this.toggleEditable}>Cancel</Button>
       			</div>
       		}
 	      </Panel>
