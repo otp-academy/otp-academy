@@ -14,7 +14,7 @@ export default class ChampionNotes extends Component {
 			editing: false
 		};
 		this.showMatchupNotes = this.showMatchupNotes.bind(this);
-		this.makeEditable = this.makeEditable.bind(this);
+		this.toggleEditable = this.toggleEditable.bind(this);
 		this.saveChanges = this.saveChanges.bind(this);
 	}
 
@@ -58,11 +58,11 @@ export default class ChampionNotes extends Component {
 		}
 	}
 
-	makeEditable() {
-		let { currentNote, notesFromArray }	= this.state;
+	toggleEditable() {
+		let { currentNote, notesFromArray, editing }	= this.state;
 		this.setState({
 			currentNote: currentNote ? currentNote : notesFromArray,
-			editing: true
+			editing: !editing
 		})
 	}
 
@@ -109,7 +109,7 @@ export default class ChampionNotes extends Component {
       		{!editing && enemyChamp && 
       			<div className="content">
       				<text>{currentNote ? currentNote : (notesFromArray ? notesFromArray : "No notes for this matchup")}</text>
-      				<Button bsStyle="info" onClick={this.makeEditable}>Edit</Button>
+      				<Button bsStyle="info" onClick={this.toggleEditable}>Edit</Button>
       			</div>
       		}
       		{editing && enemyChamp &&
@@ -120,6 +120,7 @@ export default class ChampionNotes extends Component {
 		      			defaultValue={currentNote || notesFromArray}
 		      		></Textarea>
 	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
+	      			<Button bsStyle="info" className="button-cancel" onClick={this.toggleEditable}>Cancel</Button>
       			</div>
       		}
 	      </Panel>

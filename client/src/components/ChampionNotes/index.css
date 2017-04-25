@@ -7,6 +7,10 @@ button {
 	float: right;
 }
 
+.button-cancel {
+	margin-right: 5px;
+}
+
 .content {
 	overflow: hidden;
 }
@@ -17,8 +21,9 @@ button {
 }
 
 #enemy-search-wrapper {
+	position: absolute;
 	margin-left: 10px;
-	margin-top: -10px;
+	margin-top: 7px;
 }
 
 #textarea {
