@@ -9,50 +9,65 @@ export default class Landing extends Component {
     this.state = {
       numNotes: 0,
       currentChamps: [],
-      enemyChamps: []
+      enemyChamps: [],
+      notes: []
     };
     this.createNotesPanel = this.createNotesPanel.bind(this);
     this.deleteNotesPanel = this.deleteNotesPanel.bind(this);
     this.addEnemyChamp = this.addEnemyChamp.bind(this);
+    this.updateNotesArray = this.updateNotesArray.bind(this);
   }
+
   componentDidMount() {
     if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
   }
   
-  createNotesPanel(champ) {
-    // array of champs that you currently want notes panels for
-    let { currentChamps, numNotes, enemyChamps } = this.state;
-    currentChamps.push(champ);
-    enemyChamps.push(null);
-    numNotes++;
-    this.setState({numNotes, currentChamps});
-  }
-
   addEnemyChamp(enemyChamp, i) {
     let { enemyChamps } = this.state;
     enemyChamps[i] = enemyChamp;
     this.setState({enemyChamps});
   }
 
+  createNotesPanel(champ) {
+    // array of champs that you currently want notes panels for
+    let { currentChamps, numNotes, notes, enemyChamps } = this.state;
+    currentChamps.push(champ);
+    enemyChamps.push(null);
+    notes.push(null);
+    numNotes++;
+    this.setState({numNotes, currentChamps, enemyChamps, notes});
+  }
+
   deleteNotesPanel(i) {
-    let { currentChamps, enemyChamps, numNotes } = this.state;
+    let { currentChamps, enemyChamps, notes, numNotes } = this.state;
     numNotes--;
     currentChamps.splice(i, 1);
     enemyChamps.splice(i, 1);
-    this.setState({numNotes, currentChamps, enemyChamps});
+    notes.splice(i, 1);
+    // upon deleting a note panel, update all other siblings' panels to correctly display the notes
+    this.setState({numNotes, currentChamps, enemyChamps, notes});
+  }
+
+  updateNotesArray(i, currentNote) {
+    let { notes } = this.state;
+    notes[i] = currentNote;
+    this.setState({notes});
+    console.log(notes)
   }
 
   render() {
     const notesPanels = [];
-    const { currentChamps, enemyChamps, numNotes } = this.state;
+    const { currentChamps, enemyChamps, notes, numNotes } = this.state;
     for (var i = 0; i < numNotes; i++) {
       notesPanels.push(<ChampionNotes 
                           key={ currentChamps[i].key + i }
                           number={ i } 
                           champ={ currentChamps[i] }
                           enemyChamp={ enemyChamps[i] }
+                          notesFromArray={ notes[i] }
                           deleteNotesPanel = { this.deleteNotesPanel }
                           addEnemyChamp = { this.addEnemyChamp }
+                          updateNotesArray = { this.updateNotesArray }
                         />)
     }
     return (
