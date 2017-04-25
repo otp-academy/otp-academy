@@ -97,8 +97,8 @@ export default class ChampionNotes extends Component {
 	        		enemyChamp &&
 	        		<ChampionBox champ={ enemyChamp } imageOnly={ true } />
 	        	}
-	        	<span id="enemySearch">
-	        		<ChampionSearchBar style={{marginLeft: '10px'}} showMatchupNotes={ this.showMatchupNotes } />
+	        	<span id="enemy-search-wrapper">
+	        		<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
 	        	</span>
 	        	<button onClick={(e) => {
             	e.stopPropagation();
@@ -114,7 +114,8 @@ export default class ChampionNotes extends Component {
       		}
       		{editing && enemyChamp &&
       			<div className="content">
-		      		<Textarea 
+		      		<Textarea
+		      			id="textarea"
 		      			ref="newNote"
 		      			defaultValue={currentNote || notesFromArray}
 		      		></Textarea>
