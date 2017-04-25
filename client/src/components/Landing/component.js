@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Col } from 'react-bootstrap/lib';
 import ChampionSideBar from '../ChampionSideBar';
 import ChampionNotes from '../ChampionNotes';
 
@@ -24,12 +25,14 @@ export default class Landing extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="col-lg-4">
+        <Col sm={4}>
           <ChampionSideBar createNotesPanel={ this.createNotesPanel }/>
+        </Col>
+        <Col sm={8}>
           {this.state.showComponent && 
             <ChampionNotes champ={ this.state.currentChamp }/>
           }
-        </div>
+        </Col>
       </div>  
     );
   }

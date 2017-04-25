@@ -41,7 +41,7 @@ export default class ChampionSearchBar extends Component {
     const { champList, myChampions, addChampion, createNotesPanel, showMatchupNotes } = this.props;
     var placeholder = addChampion ? "Add a Champion" : "Select Opponent";
     return (
-      <div>
+      <span>
         <input type="text" value={ this.state.value } onChange={this.handleChange} placeholder={placeholder}/>
         <Typeahead
           show={ this.state.value }
@@ -52,7 +52,7 @@ export default class ChampionSearchBar extends Component {
           showMatchupNotes={ showMatchupNotes }
           clearSearchBar={ this.clearSearchBar }
         />
-      </div>
+      </span>
     );
   }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Panel, Button } from 'react-bootstrap/lib';
+import { Panel, Button, Col, Image } from 'react-bootstrap/lib';
 import ChampionBox from '../ChampionBox';
 import ChampionSearchBar from '../../lib/ChampionSearchBar';
+import Textarea from 'react-textarea-autosize';
 
 export default class ChampionNotes extends Component {
 	constructor(props) {
@@ -20,7 +21,7 @@ export default class ChampionNotes extends Component {
 	showMatchupNotes(enemyChamp) {
 		const {champ, notes} = this.props;
 		var currentNote = (notes && notes[champ.key] && notes[champ.key][enemyChamp.key]) ? 
-											notes[champ.key][enemyChamp.key] : "No notes for this matchup"
+											notes[champ.key][enemyChamp.key] : "";
 		this.setState({
 			enemyChamp: enemyChamp,
 			currentNote: currentNote
@@ -52,9 +53,10 @@ export default class ChampionNotes extends Component {
 			editing: false,
 			currentNote: newNote
 		})
-		console.log(notes, currentChamp, enemyChamp)
 		if (currentChamp && enemyChamp) {
 			if (!notes[currentChamp.key]) notes[currentChamp.key] = {};
+			if (notes[currentChamp.key][enemyChamp.key] === newNote || 
+					newNote === "") return;
 			notes[currentChamp.key][enemyChamp.key] = newNote;
 			this.props.requestUpdateNotes(this.props.userId, notes);
 		}
@@ -67,27 +69,29 @@ export default class ChampionNotes extends Component {
 	    <div>
 	      <Panel header={
 	      	<div>
-	        	<ChampionBox champ={ champ } imageOnly={ true } />
-	        	vs
+        		<ChampionBox champ={ champ } imageOnly={ true } />
+        		<img id="versus" src={require('../../lib/StaticImg/versus.png')} alt="VS" />
 	        	{
 	        		enemyChamp &&
 	        		<ChampionBox champ={ enemyChamp } imageOnly={ true } />
 	        	}
-	        	<ChampionSearchBar showMatchupNotes={ this.showMatchupNotes } />
+	        	<span id="enemySearch">
+	        		<ChampionSearchBar style={{marginLeft: '10px'}} showMatchupNotes={ this.showMatchupNotes } />
+	        	</span>
 	        </div>
 		    }>
-      		{!editing &&
+      		{!editing && enemyChamp && 
       			<div className="content">
-      				<text>{currentNote}</text>
+      				<text>{currentNote ? currentNote : "No notes for this matchup"}</text>
       				<Button bsStyle="info" onClick={this.makeEditable}>Edit</Button>
       			</div>
       		}
-      		{editing &&
+      		{editing && enemyChamp &&
       			<div className="content">
-		      		<textarea 
+		      		<Textarea 
 		      			ref="newNote"
 		      			defaultValue={currentNote}
-		      		></textarea>
+		      		></Textarea>
 	      			<Button type="submit" bsStyle="info" onClick={this.saveChanges}>Save</Button>
       			</div>
       		}
