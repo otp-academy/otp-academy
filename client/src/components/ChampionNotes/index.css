@@ -23,7 +23,20 @@ button {
 #enemy-search-wrapper {
 	position: absolute;
 	margin-left: 10px;
-	margin-top: 7px;
+	margin-top: 5px;
+}
+
+#enemy-search-wrapper .typeahead-library {
+	margin-left: 10px;
+}
+
+#enemy-search-wrapper .typeahead-library span, 
+#enemy-search-wrapper .typeahead-library img {
+	width: 40px;
+}
+
+#enemy-search-wrapper .typeahead-library p {
+	visibility: hidden;
 }
 
 #textarea {
