@@ -63,7 +63,7 @@ export default class ChampionNotes extends Component {
 	}
 
 	render() {
-  	const {champList, champ} = this.props;
+  	const {champList, champ, deleteNotesPanel, i} = this.props;
   	const {enemyChamp, currentNote, editing} = this.state;
 	  return (
 	    <div>
@@ -78,6 +78,10 @@ export default class ChampionNotes extends Component {
 	        	<span id="enemySearch">
 	        		<ChampionSearchBar style={{marginLeft: '10px'}} showMatchupNotes={ this.showMatchupNotes } />
 	        	</span>
+	        	<button onClick={(e) => {
+            	e.stopPropagation();
+            	deleteNotesPanel(i);
+            }}>x</button>
 	        </div>
 		    }>
       		{!editing && enemyChamp && 

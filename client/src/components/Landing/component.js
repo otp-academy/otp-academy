@@ -11,6 +11,7 @@ export default class Landing extends Component {
       currentChamps: []
     };
     this.createNotesPanel = this.createNotesPanel.bind(this);
+    this.deleteNotesPanel = this.deleteNotesPanel.bind(this);
   }
   componentDidMount() {
     if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
@@ -24,11 +25,22 @@ export default class Landing extends Component {
     this.setState({numNotes, currentChamps});
   }
 
+  deleteNotesPanel(i) {
+    let { currentChamps, numNotes } = this.state;
+    numNotes--;
+    currentChamps.splice(i, 1);
+    this.setState({numNotes, currentChamps});
+  }
+
   render() {
     const notesPanels = [];
     const { currentChamps, numNotes } = this.state;
     for (var i = 0; i < numNotes; i++) {
-      notesPanels.push(<ChampionNotes number={ i } champ={ currentChamps[i] }/>)
+      notesPanels.push(<ChampionNotes 
+                          number={ i } 
+                          champ={ currentChamps[i] }
+                          deleteNotesPanel = { this.deleteNotesPanel }
+                        />)
     }
     return (
       <div className="container-fluid" id="landing">
