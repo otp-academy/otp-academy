@@ -19,6 +19,7 @@ export default class Landing extends Component {
   }
 
   componentDidMount() {
+    this.props.requestSession();
     if (Object.keys(this.props.champList).length === 0) this.props.requestChampList();
   }
   

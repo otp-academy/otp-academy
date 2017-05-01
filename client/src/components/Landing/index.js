@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import component from './component';
+import { requestSession } from 'actions/auth';
 import { requestChampList } from 'actions/champ';
 
 const mapStateToProps = (state) => {
@@ -11,7 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestChampList: () => dispatch(requestChampList())
+    requestChampList: () => dispatch(requestChampList()),
+    requestSession: () => dispatch(requestSession())
   };
 }
 
