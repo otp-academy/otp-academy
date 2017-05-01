@@ -39,6 +39,7 @@
     "redux-saga": "^0.14.3",
     "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
+    "sass-loader": "^6.0.3",
     "sequelize": "^3.30.2"
   },
   "devDependencies": {
